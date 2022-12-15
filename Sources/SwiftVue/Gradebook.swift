@@ -178,6 +178,10 @@ public class GradebookParser: NSObject, XMLParserDelegate {
         parser.shouldResolveExternalEntities = false
     }
     
+    public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        parser.abortParsing()
+    }
+    
     public func parser(_ parser: XMLParser, didStartElement: String, namespaceURI: String?, qualifiedName: String?, attributes: [String : String]) {
         switch didStartElement {
         case "ReportPeriod":
@@ -202,21 +206,29 @@ public class GradebookParser: NSObject, XMLParserDelegate {
     public func parser(_ parser: XMLParser, didEndElement: String, namespaceURI: String?, qualifiedName: String?) {
         switch didEndElement {
         case "Assignment":
-            assignment!.resources = resources
+            assignment?.resources = resources
             resources = []
-            assignments.append(assignment!)
+            if let assignment {
+                assignments.append(assignment)
+            }
         case "Mark":
-            mark!.gradeCalculationSumary = gradeSummary
+            mark?.gradeCalculationSumary = gradeSummary
             gradeSummary = []
-            mark!.assignments = assignments
+            mark?.assignments = assignments
             assignments = []
-            marks.append(mark!)
+            if let mark {
+                marks.append(mark)
+            }
         case "Course":
-            course!.marks = marks
+            course?.marks = marks
             marks = []
-            courses.append(course!)
+            if let course {
+                courses.append(course)
+            }
         case "Gradebook":
-            gradebook = Gradebook(reportingPeriods: reportingPeriods, reportingPeriod: reportingPeriod!, courses: courses)
+            if let reportingPeriod {
+                gradebook = Gradebook(reportingPeriods: reportingPeriods, reportingPeriod: reportingPeriod, courses: courses)
+            }
             reportingPeriods = []
             courses = []
         default:

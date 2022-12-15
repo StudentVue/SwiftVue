@@ -22,7 +22,8 @@ extension StudentVue {
             <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
             <soap:Body>
             <ProcessWebServiceRequest xmlns="http://edupoint.com/webservices/">
-            <userID>\(user ? credentials.username : Self.edupointCredentials.username)</userID><password>\(user ? credentials.password : Self.edupointCredentials.password)</password>
+            <userID>\(user ? credentials.username : Self.edupointCredentials.username)</userID>
+            <password>\(user ? credentials.password : Self.edupointCredentials.password)</password>
             <skipLoginLog>1</skipLoginLog>
             <parent>0</parent>
             <webServiceHandleName>\(handle)</webServiceHandleName>

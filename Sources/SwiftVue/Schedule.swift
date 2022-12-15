@@ -170,6 +170,10 @@ public class ScheduleParser: NSObject, XMLParserDelegate {
         parser.shouldResolveExternalEntities = false
     }
     
+    public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        parser.abortParsing()
+    }
+    
     public func parser(_ parser: XMLParser, didStartElement: String, namespaceURI: String?, qualifiedName: String?, attributes: [String : String]) {
         switch didStartElement {
         case "StudentClassSchedule":
@@ -197,33 +201,38 @@ public class ScheduleParser: NSObject, XMLParserDelegate {
     public func parser(_ parser: XMLParser, didEndElement: String, namespaceURI: String?, qualifiedName: String?) {
         switch didEndElement {
         case "SchoolInfo":
-            schoolInfo!.classes = classes
+            schoolInfo?.classes = classes
             classes = []
-            schoolInfos.append(schoolInfo!)
+            if let schoolInfo {
+                schoolInfos.append(schoolInfo)
+            }
         case "TodayScheduleInfoData":
-            todaySchedule!.schoolInfos = schoolInfos
+            todaySchedule?.schoolInfos = schoolInfos
             schoolInfos = []
-            schedule = Schedule(termIndex: termIndex ?? "Error", termIndexName: termIndexName ?? "Error", todaySchedule: todaySchedule!, classLists: [], termLists: [], concurrentClassSchedules: [])
+            if let todaySchedule, let termIndex, let termIndexName {
+                schedule = Schedule(termIndex: termIndex, termIndexName: termIndexName, todaySchedule: todaySchedule, classLists: [], termLists: [], concurrentClassSchedules: [])
+            }
         case "ClassLists":
-            schedule!.classLists = classLists
+            schedule?.classLists = classLists
             classLists = []
         case "TermListing":
-            termListing!.termDefCodes = termDefCodes
+            termListing?.termDefCodes = termDefCodes
             termDefCodes = []
-            termLists.append(termListing!)
+            if let termListing {
+                termLists.append(termListing)
+            }
         case "TermLists":
-            schedule!.termLists = termLists
+            schedule?.termLists = termLists
             termLists = []
         case "ConSchClassLists":
-            concurrentSchoolClassSchedule!.classLists = classLists
+            concurrentSchoolClassSchedule?.classLists = classLists
             classLists = []
         case "ConSchTermLists":
-            concurrentSchoolClassSchedule!.termLists = termLists
+            concurrentSchoolClassSchedule?.termLists = termLists
             termLists = []
         case "ConcurrentSchoolStudentClassSchedules":
-            schedule!.concurrentClassSchedules = concurrentSchoolStudentClassSchedules
+            schedule?.concurrentClassSchedules = concurrentSchoolStudentClassSchedules
             concurrentSchoolStudentClassSchedules = []
-            
         default:
             return
         }
