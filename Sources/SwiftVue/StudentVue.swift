@@ -4,11 +4,11 @@ public class StudentVue {
     var credentials: Credentials
     static private let edupointCredentials: Credentials = Credentials(username: "EdupointDistrictInfo", password: "Edup01nt", districtURL: "https://support.edupoint.com")
     
-    init(credentials: Credentials) {
+    public init(credentials: Credentials) {
         self.credentials = credentials
     }
     
-    init(username: String, password: String, districtURL: String) {
+    public init(username: String, password: String, districtURL: String) {
         self.credentials = Credentials(username: username, password: password, districtURL: districtURL)
     }
 }
