@@ -224,12 +224,14 @@ public class ScheduleParser: NSObject, XMLParserDelegate {
         case "TermLists":
             schedule?.termLists = termLists
             termLists = []
-        case "ConSchClassLists":
+        case "ConcurrentSchoolStudentClassSchedule":
             concurrentSchoolClassSchedule?.classLists = classLists
             classLists = []
-        case "ConSchTermLists":
             concurrentSchoolClassSchedule?.termLists = termLists
             termLists = []
+            if let concurrentSchoolClassSchedule {
+                concurrentSchoolStudentClassSchedules.append(concurrentSchoolClassSchedule)
+            }
         case "ConcurrentSchoolStudentClassSchedules":
             schedule?.concurrentClassSchedules = concurrentSchoolStudentClassSchedules
             concurrentSchoolStudentClassSchedules = []
