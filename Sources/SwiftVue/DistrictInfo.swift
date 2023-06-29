@@ -7,16 +7,6 @@
 
 import Foundation
 
-public struct DistrictList: Hashable, Codable, Identifiable {
-    public var id: UUID = UUID()
-    public var districtInfos: [DistrictInfo]
-    
-    public init(id: UUID = UUID(), districtInfos: [DistrictInfo]) {
-        self.id = id
-        self.districtInfos = districtInfos
-    }
-}
-
 public struct DistrictInfo: Hashable, Codable, Identifiable {
     public var id: UUID = UUID()
     public var districtID: String
@@ -34,7 +24,6 @@ public struct DistrictInfo: Hashable, Codable, Identifiable {
 }
 
 public class DistrictInfoParser: NSObject, XMLParserDelegate {
-    public var districtList: DistrictList?
     private var districtInfos: [DistrictInfo] = []
     private var parser: XMLParser
     
@@ -56,22 +45,8 @@ public class DistrictInfoParser: NSObject, XMLParserDelegate {
         }
     }
     
-    public func parser(_ parser: XMLParser, didEndElement: String, namespaceURI: String?, qualifiedName: String?) {
-        switch didEndElement {
-        case "DistrictInfos":
-            districtList = DistrictList(districtInfos: districtInfos)
-            districtInfos = []
-        default:
-            return
-        }
-    }
-    
-    public func parse() -> Result<DistrictList, Error> {
+    public func parse() -> Result<[DistrictInfo], Error> {
         parser.parse()
-        if let districtList {
-            return .success(districtList)
-        } else {
-            return .failure(SwiftVueError.xmlParsingError)
-        }
+        return .success(districtInfos)
     }
 }

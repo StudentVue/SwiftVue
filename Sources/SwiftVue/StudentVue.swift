@@ -163,7 +163,7 @@ extension StudentVue {
         return await makeRequest(method: "GetContentOfAttachedDoc", params: ["DocumentGU": documentGUID], handle: "PXPWebServices")
     }
     
-    public func getDistrictList(zip: Int) async -> Result<DistrictList, Error> {
+    public func getDistrictList(zip: String) async -> Result<[DistrictInfo], Error> {
         let string = await makeRequest(method: "GetMatchingDistrictList", params: ["Key":"5E4B7859-B805-474B-A833-FDB15D205D40", "MatchToDistrictZipCode":"\(zip)"], handle: "HDInfoServices", user: true)
         switch string {
         case .success(let success):
@@ -340,7 +340,7 @@ extension StudentVue {
         return await makeRequest(method: "GetContentOfAttachedDoc", params: ["DocumentGU": documentGuid], handle: "PXPWebServices", host: credentials.districtURL, path: "/Service/PXPCommunication.asmx", user: credentials.username, pass: credentials.password)
     }
     
-    static public func getDistrictList(zip: Int) async -> Result<DistrictList, Error> {
+    static public func getDistrictList(zip: String) async -> Result<[DistrictInfo], Error> {
         let string = await makeRequest(method: "GetMatchingDistrictList", params: ["Key":"5E4B7859-B805-474B-A833-FDB15D205D40", "MatchToDistrictZipCode":"\(zip)"], handle: "HDInfoServices", host: "https://support.edupoint.com", path: "/Service/HDInfoCommunication.asmx", user: "EdupointDistrictInfo", pass: "Edup01nt")
         switch string {
         case .success(let success):
