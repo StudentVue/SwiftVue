@@ -78,7 +78,7 @@ extension StudentVue {
     }
 }
 
-// Instance convienince methods
+// Instance convenience methods
 extension StudentVue {
     public func getMessages() async -> Result<String, Error> {
         return await makeRequest(method: "GetPXPMessages", handle: "PXPWebServices")
@@ -249,7 +249,7 @@ extension StudentVue {
     }
 }
 
-//Static convienince methods
+//Static convenience methods
 extension StudentVue {
     static public func getMessages(_ credentials: Credentials) async -> Result<String, Error> {
         return await makeRequest(method: "GetPXPMessages", handle: "PXPWebServices", host: credentials.districtURL, path: "/Service/PXPCommunication.asmx", user: credentials.username, pass: credentials.password)
