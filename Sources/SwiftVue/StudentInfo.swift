@@ -166,6 +166,10 @@ public struct StudentInfo: Hashable, Codable, Identifiable {
         self.dentist = dentist
         self.userDefinedGroupBoxes = userDefinedGroupBoxes
     }
+    
+    public static func sample() -> StudentInfo {
+        return sampleStudentInfo
+    }
 }
 
 public struct EmergencyContact: Hashable, Codable, Identifiable {
@@ -186,6 +190,10 @@ public struct EmergencyContact: Hashable, Codable, Identifiable {
         self.otherPhone = otherPhone
         self.mobilePhone = mobilePhone
     }
+    
+    public static func sample() -> EmergencyContact {
+        return sampleEmergencyContact
+    }
 }
 
 public struct Physician: Hashable, Codable, Identifiable {
@@ -202,6 +210,10 @@ public struct Physician: Hashable, Codable, Identifiable {
         self.phone = phone
         self.extn = extn
     }
+    
+    public static func sample() -> Physician {
+        return samplePhysician
+    }
 }
 
 public struct Dentist: Hashable, Codable, Identifiable {
@@ -217,6 +229,10 @@ public struct Dentist: Hashable, Codable, Identifiable {
         self.office = office
         self.phone = phone
         self.extn = extn
+    }
+    
+    public static func sample() -> Dentist {
+        return sampleDentist
     }
 }
 
@@ -239,5 +255,9 @@ public struct UserDefinedItem: Hashable, Codable, Identifiable {
         self.id = id
         self.itemLabel = itemLabel
         self.value = value
+    }
+    
+    public static func sample() -> UserDefinedItem {
+        return sampleUserDefinedItem
     }
 }

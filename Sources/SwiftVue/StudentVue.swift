@@ -109,6 +109,14 @@ extension StudentVue {
         }
     }
     
+    public func getGradebookPreview(multiMark: Bool = true) async -> Result<Gradebook, Error> {
+        do {
+            try await Task.sleep(nanoseconds: 2_000_000_000)
+        } catch {
+        }
+        return .success(multiMark ? PreviewData.multiMarkGradebook : PreviewData.singleMarkGradebook)
+    }
+    
     public func getClassNotes() async -> Result<String, Error> {
         return await makeRequest(method: "StudentHWNotes", handle: "PXPWebServices")
     }

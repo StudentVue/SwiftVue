@@ -25,6 +25,10 @@ public struct Schedule: Hashable, Codable, Identifiable {
         self.termLists = termLists
         self.concurrentClassSchedules = concurrentClassSchedules
     }
+    
+    public static func sample() -> Schedule {
+        return sampleSchedule
+    }
 }
 
 public struct TodayScheduleInfoData: Hashable, Codable, Identifiable {
@@ -36,6 +40,10 @@ public struct TodayScheduleInfoData: Hashable, Codable, Identifiable {
         self.id = id
         self.date = date
         self.schoolInfos = schoolInfos
+    }
+    
+    public static func sample() -> TodayScheduleInfoData {
+        return sampleTodayScheduleInfoData
     }
 }
 
@@ -50,6 +58,10 @@ public struct SchoolInfo: Hashable, Codable, Identifiable {
         self.name = name
         self.bellScheduleName = bellScheduleName
         self.classes = classes
+    }
+    
+    public static func sample() -> SchoolInfo {
+        return sampleSchoolInfo
     }
 }
 
@@ -77,6 +89,10 @@ public struct ClassInfo: Hashable, Codable, Identifiable {
         self.endDate = endDate
         self.startDate = startDate
     }
+    
+    public static func sample() -> ClassInfo {
+        return sampleClassInfo
+    }
 }
 
 public struct ClassListing: Hashable, Codable, Identifiable {
@@ -94,6 +110,10 @@ public struct ClassListing: Hashable, Codable, Identifiable {
         self.roomName = roomName
         self.teacher = teacher
         self.teacherEmail = teacherEmail
+    }
+    
+    public static func sample() -> ClassListing {
+        return sampleClassListing
     }
 }
 
@@ -114,6 +134,10 @@ public struct TermListing: Hashable, Codable, Identifiable {
         self.beginDate = beginDate
         self.endDate = endDate
         self.termDefCodes = termDefCodes
+    }
+    
+    public static func sample() -> TermListing {
+        return sampleTermListing
     }
 }
 
@@ -142,6 +166,10 @@ public struct ConcurrentClassSchedule: Hashable, Codable, Identifiable {
         self.termIndexName = termIndexName
         self.classLists = classLists
         self.termLists = termLists
+    }
+    
+    public static func sample() -> ConcurrentClassSchedule {
+        return sampleConcurrentClassSchedule
     }
 }
 

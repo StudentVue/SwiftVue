@@ -19,6 +19,10 @@ public struct Gradebook: Hashable, Codable, Identifiable {
         self.reportingPeriod = reportingPeriod
         self.courses = courses
     }
+    
+    public static func sample(multiMark: Bool) -> Gradebook {
+        return multiMark ? sampleGradebookMultiMark : sampleGradebookSingleMark
+    }
 }
 
 public struct ReportPeriod: Hashable, Codable, Identifiable {
@@ -35,6 +39,10 @@ public struct ReportPeriod: Hashable, Codable, Identifiable {
         self.startDate = startDate
         self.endDate = endDate
     }
+    
+    public static func sample() -> ReportPeriod {
+        return sampleReportPeriod
+    }
 }
 
 public struct ReportingPeriod: Hashable, Codable, Identifiable {
@@ -48,6 +56,10 @@ public struct ReportingPeriod: Hashable, Codable, Identifiable {
         self.name = name
         self.startDate = startDate
         self.endDate = endDate
+    }
+    
+    public static func sample() -> ReportingPeriod {
+        return sampleReportingPeriod
     }
 }
 
@@ -69,6 +81,10 @@ public struct Course: Hashable, Codable, Identifiable {
         self.staffEmail = staffEmail
         self.marks = marks
     }
+    
+    public static func sample(multiMark: Bool) -> Course {
+        return multiMark ? sampleCourseMultiMark : sampleCourseSingleMark
+    }
 }
 
 public struct Mark: Hashable, Codable, Identifiable {
@@ -86,6 +102,10 @@ public struct Mark: Hashable, Codable, Identifiable {
         self.scoreRaw = scoreRaw
         self.gradeCalculationSumary = gradeCalculationSumary
         self.assignments = assignments
+    }
+    
+    public static func sample() -> Mark {
+        return sampleMark
     }
 }
 
@@ -107,6 +127,10 @@ public struct GradeCalculationPart: Hashable, Codable, Identifiable {
         self.pointsPossible = pointsPossible
         self.calculatedMark = calculatedMark
         self.weightedPct = weightedPct
+    }
+    
+    public static func sample() -> GradeCalculationPart {
+        return sampleGradeCalculationPart
     }
 }
 
@@ -135,6 +159,10 @@ public struct Assignment: Hashable, Codable, Identifiable {
         self.notes = notes
         self.description = description
         self.resources = resources
+    }
+    
+    public static func sample() -> Assignment {
+        return sampleAssignment
     }
 }
 

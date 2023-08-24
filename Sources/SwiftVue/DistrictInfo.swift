@@ -21,6 +21,10 @@ public struct DistrictInfo: Hashable, Codable, Identifiable {
         self.address = address
         self.url = url
     }
+    
+    public static func sample() -> DistrictInfo {
+        return sampleDistrictInfo
+    }
 }
 
 public class DistrictInfoParser: NSObject, XMLParserDelegate {
