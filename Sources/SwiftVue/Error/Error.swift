@@ -14,6 +14,7 @@ public enum SwiftVueError: LocalizedError {
     case xmlParsingError // XML parsing failed
     case urlError
     case unknown
+    case noData
     
     public var errorDescription: String? {
         switch self {
@@ -29,6 +30,8 @@ public enum SwiftVueError: LocalizedError {
             return "URL Error"
         case .unknown:
             return "Unknown Error"
+        case .noData:
+            return "No Data Error"
         }
     }
 }

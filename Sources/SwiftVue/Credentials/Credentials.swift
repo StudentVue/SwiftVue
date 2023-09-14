@@ -17,4 +17,6 @@ public struct Credentials: Hashable, Codable {
     public var username: String
     public var password: String
     public var districtURL: String
+    
+    public static let previewCredentials: Credentials = Credentials(username: "myUs3rname", password: "myP@ssword", districtURL: "myD1strict")
 }

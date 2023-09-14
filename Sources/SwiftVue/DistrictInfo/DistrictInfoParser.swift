@@ -1,31 +1,11 @@
 //
-//  DistrictInfo.swift
+//  DistrictInfoParser.swift
 //  
 //
-//  Created by Evan Kaneshige on 12/7/22.
+//  Created by Evan Kaneshige on 8/26/23.
 //
 
 import Foundation
-
-public struct DistrictInfo: Hashable, Codable, Identifiable {
-    public var id: UUID = UUID()
-    public var districtID: String
-    public var name: String
-    public var address: String
-    public var url: String
-    
-    public init(id: UUID = UUID(), districtID: String, name: String, address: String, url: String) {
-        self.id = id
-        self.districtID = districtID
-        self.name = name
-        self.address = address
-        self.url = url
-    }
-    
-    public static func sample() -> DistrictInfo {
-        return sampleDistrictInfo
-    }
-}
 
 public class DistrictInfoParser: NSObject, XMLParserDelegate {
     private var districtInfos: [DistrictInfo] = []
