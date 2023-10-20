@@ -8,7 +8,7 @@
 import Foundation
 
 public class ScheduleParser: NSObject, XMLParserDelegate {
-    public var schedule: Schedule?
+    private var schedule: Schedule?
     private var termIndex: String?
     private var termIndexName: String?
     private var todaySchedule: TodayScheduleInfoData?
@@ -21,10 +21,12 @@ public class ScheduleParser: NSObject, XMLParserDelegate {
     private var termListing: TermListing?
     private var termDefCodes: [TermDefCode] = []
     private var concurrentSchoolClassSchedule: ConcurrentClassSchedule?
+    
     private var parser: XMLParser
+    private var error: Error?
     
     public init(string: String) {
-        parser = XMLParser(data: string.data(using: .utf8) ?? Data())
+        parser = XMLParser(data: Data(string.utf8))
         super.init()
         parser.delegate = self
         parser.shouldProcessNamespaces = false
@@ -34,6 +36,12 @@ public class ScheduleParser: NSObject, XMLParserDelegate {
     
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         parser.abortParsing()
+        self.error = parseError
+    }
+    
+    public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
+        parser.abortParsing()
+        self.error = validationError
     }
     
     public func parser(_ parser: XMLParser, didStartElement: String, namespaceURI: String?, qualifiedName: String?, attributes: [String : String]) {
@@ -102,12 +110,17 @@ public class ScheduleParser: NSObject, XMLParserDelegate {
         }
     }
     
-    public func parse() -> Result<Schedule, Error> {
+    public func parse() throws -> Schedule {
         parser.parse()
+        
+        if let error {
+            throw error
+        }
+        
         if let schedule {
-            return .success(schedule)
+            return schedule
         } else {
-            return .failure(SwiftVueError.xmlParsingError)
+            throw SwiftVueError.couldNotParseXML
         }
     }
 }

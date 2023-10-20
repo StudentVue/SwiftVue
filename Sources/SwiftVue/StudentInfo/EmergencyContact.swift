@@ -26,7 +26,5 @@ public struct EmergencyContact: Hashable, Codable, Identifiable {
         self.mobilePhone = mobilePhone
     }
     
-    public static func sample() -> EmergencyContact {
-        return PreviewData.contact1
-    }
+    public static let preview: EmergencyContact = PreviewData.contact1
 }

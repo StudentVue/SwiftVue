@@ -8,7 +8,7 @@
 import Foundation
 
 public class GradebookParser: NSObject, XMLParserDelegate {
-    public var gradebook: Gradebook?
+    private var gradebook: Gradebook?
     private var reportingPeriods: [ReportPeriod] = []
     private var reportingPeriod: ReportingPeriod?
     private var courses: [Course] = []
@@ -20,10 +20,12 @@ public class GradebookParser: NSObject, XMLParserDelegate {
     private var gradeParts: [GradeCalculationPart] = []
     private var assignment: Assignment?
     private var resources: [Resource] = []
+    
     private var parser: XMLParser
+    private var error: Error?
     
     public init(string: String) {
-        parser = XMLParser(data: string.data(using: .utf8) ?? Data())
+        parser = XMLParser(data: Data(string.utf8))
         super.init()
         parser.delegate = self
         parser.shouldProcessNamespaces = false
@@ -33,6 +35,12 @@ public class GradebookParser: NSObject, XMLParserDelegate {
     
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         parser.abortParsing()
+        self.error = parseError
+    }
+    
+    public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
+        parser.abortParsing()
+        self.error = validationError
     }
     
     public func parser(_ parser: XMLParser, didStartElement: String, namespaceURI: String?, qualifiedName: String?, attributes: [String : String]) {
@@ -89,12 +97,17 @@ public class GradebookParser: NSObject, XMLParserDelegate {
         }
     }
     
-    public func parse() -> Result<Gradebook, Error> {
+    public func parse() throws -> Gradebook {
         parser.parse()
+        
+        if let error {
+            throw error
+        }
+        
         if let gradebook {
-            return .success(gradebook)
+            return gradebook
         } else {
-            return .failure(SwiftVueError.xmlParsingError)
+            throw SwiftVueError.couldNotParseXML
         }
     }
 }

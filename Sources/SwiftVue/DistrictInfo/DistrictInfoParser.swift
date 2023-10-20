@@ -9,15 +9,27 @@ import Foundation
 
 public class DistrictInfoParser: NSObject, XMLParserDelegate {
     private var districtInfos: [DistrictInfo] = []
+    
     private var parser: XMLParser
+    private var error: Error?
     
     public init(string: String) {
-        parser = XMLParser(data: string.data(using: .utf8) ?? Data())
+        parser = XMLParser(data: Data(string.utf8))
         super.init()
         parser.delegate = self
         parser.shouldProcessNamespaces = false
         parser.shouldReportNamespacePrefixes = false
         parser.shouldResolveExternalEntities = false
+    }
+    
+    public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        parser.abortParsing()
+        self.error = parseError
+    }
+    
+    public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
+        parser.abortParsing()
+        self.error = validationError
     }
     
     public func parser(_ parser: XMLParser, didStartElement: String, namespaceURI: String?, qualifiedName: String?, attributes: [String : String]) {
@@ -29,8 +41,13 @@ public class DistrictInfoParser: NSObject, XMLParserDelegate {
         }
     }
     
-    public func parse() -> Result<[DistrictInfo], Error> {
+    public func parse() throws -> [DistrictInfo] {
         parser.parse()
-        return .success(districtInfos)
+        
+        if let error {
+            throw error
+        }
+        
+        return districtInfos
     }
 }

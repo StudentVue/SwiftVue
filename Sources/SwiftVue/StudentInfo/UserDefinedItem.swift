@@ -18,7 +18,5 @@ public struct UserDefinedItem: Hashable, Codable, Identifiable {
         self.value = value
     }
     
-    public static func sample() -> UserDefinedItem {
-        return PreviewData.useDefinedItem1
-    }
+    public static let preview: UserDefinedItem = PreviewData.useDefinedItem1
 }

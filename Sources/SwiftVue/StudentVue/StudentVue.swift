@@ -25,63 +25,63 @@ public class StudentVue {
 }
 
 extension StudentVue {
-    public func getMessages() async -> Result<String, Error> {
-        return await dataProvider.getMessages()
+    public func getMessages() async throws -> String {
+        return try await dataProvider.getMessages()
     }
     
-    public func getCalendar() async -> Result<String, Error> {
-        return await dataProvider.getCalendar()
+    public func getCalendar() async throws -> String {
+        return try await dataProvider.getCalendar()
     }
     
-    public func getAttendance() async -> Result<String, Error> {
-        return await dataProvider.getAttendance()
+    public func getAttendance() async throws -> String {
+        return try await dataProvider.getAttendance()
     }
     
-    public func getGradebook(reportPeriod: Int? = nil) async -> Result<Gradebook, Error> {
-        return await dataProvider.getGradebook(reportPeriod: reportPeriod)
+    public func getGradebook(reportPeriod: Int? = nil) async throws -> Gradebook {
+        return try await dataProvider.getGradebook(reportPeriod: reportPeriod)
     }
     
-    public func getClassNotes() async -> Result<String, Error> {
-        return await dataProvider.getClassNotes()
+    public func getClassNotes() async throws -> String {
+        return try await dataProvider.getClassNotes()
     }
     
-    public func getStudentInfo() async -> Result<StudentInfo, Error> {
-        return await dataProvider.getStudentInfo()
+    public func getStudentInfo() async throws -> StudentInfo {
+        return try await dataProvider.getStudentInfo()
     }
     
-    public func getSchedule(termIndex: Int? = nil) async -> Result<Schedule, Error> {
-        return await dataProvider.getSchedule(termIndex: termIndex)
+    public func getSchedule(termIndex: Int? = nil) async throws -> Schedule {
+        return try await dataProvider.getSchedule(termIndex: termIndex)
     }
     
-    public func getSchoolInfo() async -> Result<String, Error> {
-        return await dataProvider.getSchoolInfo()
+    public func getSchoolInfo() async throws -> String {
+        return try await dataProvider.getSchoolInfo()
     }
     
-    public func listReportCards() async -> Result<String, Error> {
-        return await dataProvider.listReportCards()
+    public func listReportCards() async throws -> String {
+        return try await dataProvider.listReportCards()
     }
     
-    public func getReportCard(documentGUID: String) async -> Result<String, Error> {
-        return await dataProvider.getReportCard(documentGUID: documentGUID)
+    public func getReportCard(documentGUID: String) async throws -> String {
+        return try await dataProvider.getReportCard(documentGUID: documentGUID)
     }
     
-    public func listDocuments() async -> Result<String, Error> {
-        return await dataProvider.listDocuments()
+    public func listDocuments() async throws -> String {
+        return try await dataProvider.listDocuments()
     }
     
-    public func getDocument(documentGUID: String) async -> Result<String, Error> {
-        return await dataProvider.getDocument(documentGUID: documentGUID)
+    public func getDocument(documentGUID: String) async throws -> String {
+        return try await dataProvider.getDocument(documentGUID: documentGUID)
     }
     
-    public func getDistrictList(zip: String) async -> Result<[DistrictInfo], Error> {
-        return await dataProvider.getDistrictList(zip: zip)
+    public func getDistrictList(zip: String) async throws -> [DistrictInfo] {
+        return try await dataProvider.getDistrictList(zip: zip)
     }
     
-    public func getMailInboxCount() async -> Result<String, Error> {
-        return await dataProvider.getMailInboxCount()
+    public func getMailInboxCount() async throws -> String {
+        return try await dataProvider.getMailInboxCount()
     }
     
-    public func verifyCredentials() async -> Result<Bool, Error> {
-        return await dataProvider.verifyCredentials()
+    public func verifyCredentials() async throws -> Bool {
+        return try await dataProvider.verifyCredentials()
     }
 }

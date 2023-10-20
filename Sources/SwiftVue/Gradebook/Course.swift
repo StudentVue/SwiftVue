@@ -26,7 +26,5 @@ public struct Course: Hashable, Codable, Identifiable {
         self.marks = marks
     }
     
-    public static func sample() -> Course {
-        return PreviewData.course1Sem1
-    }
+    public static let preview: Course = PreviewData.course1Sem1
 }

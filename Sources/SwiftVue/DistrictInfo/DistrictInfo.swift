@@ -22,7 +22,5 @@ public struct DistrictInfo: Hashable, Codable, Identifiable {
         self.url = url
     }
     
-    public static func sample() -> DistrictInfo {
-        return PreviewData.districtInfo1
-    }
+    public static let preview: DistrictInfo = PreviewData.districtInfo1
 }

@@ -20,7 +20,5 @@ public struct Gradebook: Hashable, Codable, Identifiable {
         self.courses = courses
     }
     
-    public static func sample() -> Gradebook {
-        return PreviewData.gradebook1
-    }
+    public static let preview: Gradebook = PreviewData.gradebook1
 }

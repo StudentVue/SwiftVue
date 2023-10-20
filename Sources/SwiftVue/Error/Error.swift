@@ -7,31 +7,34 @@
 
 import Foundation
 
-public enum SwiftVueError: LocalizedError {
-    case networkError // Bad or no HTTP response
-    case decodingError // Bad decoding of utf data from HTTP response
-    case credentialError // Wrong credentials
-    case xmlParsingError // XML parsing failed
-    case urlError
+public enum SwiftVueError: Error {
+    case invalidResponse
+    case couldNotDecodeResponse
+    case invalidCredentials
+    case couldNotParseXML
+    case invalidURL
     case unknown
     case noData
+    case notImplemented(String)
     
     public var errorDescription: String? {
         switch self {
-        case .networkError:
-            return "Networking Error"
-        case .decodingError:
-            return "Decoding Error"
-        case .credentialError:
-            return "Credential Error"
-        case .xmlParsingError:
-            return "XML Parsing Error"
-        case .urlError:
+        case .invalidResponse:
+            return "Invalid response"
+        case .couldNotDecodeResponse:
+            return "Could not decode response"
+        case .invalidCredentials:
+            return "Invalid credentials"
+        case .couldNotParseXML:
+            return "Failed to parse XML"
+        case .invalidURL:
             return "URL Error"
         case .unknown:
-            return "Unknown Error"
+            return "Unknown"
         case .noData:
-            return "No Data Error"
+            return "No data"
+        case .notImplemented(let feature):
+            return "\(feature) not implemented"
         }
     }
 }

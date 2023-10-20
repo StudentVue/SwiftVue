@@ -26,7 +26,5 @@ public struct TermListing: Hashable, Codable, Identifiable {
         self.termDefCodes = termDefCodes
     }
     
-    public static func sample() -> TermListing {
-        return PreviewData.termListing1
-    }
+    public static let preview: TermListing = PreviewData.termListing1
 }

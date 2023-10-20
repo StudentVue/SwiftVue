@@ -24,7 +24,5 @@ public struct ConcurrentClassSchedule: Hashable, Codable, Identifiable {
         self.termLists = termLists
     }
     
-    public static func sample() -> ConcurrentClassSchedule {
-        return PreviewData.concurrentClassSchedule1
-    }
+    public static let preview: ConcurrentClassSchedule = PreviewData.concurrentClassSchedule1
 }

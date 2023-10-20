@@ -32,7 +32,5 @@ public struct ClassInfo: Hashable, Codable, Identifiable {
         self.startDate = startDate
     }
     
-    public static func sample() -> ClassInfo {
-        return PreviewData.classInfo1
-    }
+    public static let preview: ClassInfo = PreviewData.classInfo1
 }

@@ -20,7 +20,5 @@ public struct SchoolInfo: Hashable, Codable, Identifiable {
         self.classes = classes
     }
     
-    public static func sample() -> SchoolInfo {
-        return PreviewData.schoolInfo1
-    }
+    public static let preview: SchoolInfo = PreviewData.schoolInfo1
 }

@@ -8,19 +8,19 @@
 import Foundation
 
 public protocol DataProvider {
-    func getMessages() async -> Result<String, Error>
-    func getCalendar() async -> Result<String, Error>
-    func getAttendance() async -> Result<String, Error>
-    func getGradebook(reportPeriod: Int?) async -> Result<Gradebook, Error>
-    func getClassNotes() async -> Result<String, Error>
-    func getStudentInfo() async -> Result<StudentInfo, Error>
-    func getSchedule(termIndex: Int?) async -> Result<Schedule, Error>
-    func getSchoolInfo() async -> Result<String, Error>
-    func listReportCards() async -> Result<String, Error>
-    func getReportCard(documentGUID: String) async -> Result<String, Error>
-    func listDocuments() async -> Result<String, Error>
-    func getDocument(documentGUID: String) async -> Result<String, Error>
-    func getDistrictList(zip: String) async -> Result<[DistrictInfo], Error>
-    func getMailInboxCount() async -> Result<String, Error>
-    func verifyCredentials() async -> Result<Bool, Error>
+    func getMessages() async throws -> String
+    func getCalendar() async throws -> String
+    func getAttendance() async throws -> String
+    func getGradebook(reportPeriod: Int?) async throws -> Gradebook
+    func getClassNotes() async throws -> String
+    func getStudentInfo() async throws -> StudentInfo
+    func getSchedule(termIndex: Int?) async throws -> Schedule
+    func getSchoolInfo() async throws -> String
+    func listReportCards() async throws -> String
+    func getReportCard(documentGUID: String) async throws -> String
+    func listDocuments() async throws -> String
+    func getDocument(documentGUID: String) async throws -> String
+    func getDistrictList(zip: String) async throws -> [DistrictInfo]
+    func getMailInboxCount() async throws -> String
+    func verifyCredentials() async throws -> Bool
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 public struct StudentInfo: Hashable, Codable, Identifiable {
-    public var id: UUID
+    public var id: UUID = UUID()
     public var formattedName: String
     public var permId: String
     public var gender: String
@@ -30,31 +30,5 @@ public struct StudentInfo: Hashable, Codable, Identifiable {
     public var dentist: Dentist
     public var userDefinedGroupBoxes: [UserDefinedGroupBox]
     
-    public init(id: UUID = UUID(), formattedName: String, permId: String, gender: String, grade: String, address: String, birthDate: String, email: String, phone: String, homeLanguage: String, currentSchool: String, homeRoomTeacher: String, homeRoomTeacherEmail: String, homeRoomNumber: String, counselorName: String, counselorEmail: String, base64Photo: String, emergencyContacts: [EmergencyContact], physician: Physician, dentist: Dentist, userDefinedGroupBoxes: [UserDefinedGroupBox]) {
-        self.id = id
-        self.formattedName = formattedName
-        self.permId = permId
-        self.gender = gender
-        self.grade = grade
-        self.address = address
-        self.birthDate = birthDate
-        self.email = email
-        self.phone = phone
-        self.homeLanguage = homeLanguage
-        self.currentSchool = currentSchool
-        self.homeRoomTeacher = homeRoomTeacher
-        self.homeRoomTeacherEmail = homeRoomTeacherEmail
-        self.homeRoomNumber = homeRoomNumber
-        self.counselorName = counselorName
-        self.counselorEmail = counselorEmail
-        self.base64Photo = base64Photo
-        self.emergencyContacts = emergencyContacts
-        self.physician = physician
-        self.dentist = dentist
-        self.userDefinedGroupBoxes = userDefinedGroupBoxes
-    }
-    
-    public static func sample() -> StudentInfo {
-        return PreviewData.student1
-    }
+    public static let preview: StudentInfo = PreviewData.student1
 }

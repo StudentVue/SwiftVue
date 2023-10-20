@@ -18,7 +18,5 @@ public struct TodayScheduleInfoData: Hashable, Codable, Identifiable {
         self.schoolInfos = schoolInfos
     }
     
-    public static func sample() -> TodayScheduleInfoData {
-        return PreviewData.todaySchedule1
-    }
+    public static let preview: TodayScheduleInfoData = PreviewData.todaySchedule1
 }

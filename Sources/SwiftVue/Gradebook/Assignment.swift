@@ -34,7 +34,5 @@ public struct Assignment: Hashable, Codable, Identifiable {
         self.resources = resources
     }
     
-    public static func sample() -> Assignment {
-        return PreviewData.course1Sem1Assignment1
-    }
+    public static let preview: Assignment = PreviewData.course1Sem1Assignment1
 }

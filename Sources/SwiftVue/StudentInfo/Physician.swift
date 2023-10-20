@@ -22,7 +22,5 @@ public struct Physician: Hashable, Codable, Identifiable {
         self.extn = extn
     }
     
-    public static func sample() -> Physician {
-        return PreviewData.physician1
-    }
+    public static let preview: Physician = PreviewData.physician1
 }

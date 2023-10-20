@@ -20,7 +20,5 @@ public struct ReportingPeriod: Hashable, Codable, Identifiable {
         self.endDate = endDate
     }
     
-    public static func sample() -> ReportingPeriod {
-        return PreviewData.reportingPeriod1
-    }
+    public static let preview: ReportingPeriod = PreviewData.reportingPeriod1
 }

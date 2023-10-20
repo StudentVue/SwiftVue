@@ -27,7 +27,5 @@ public struct GradeCalculationPart: Hashable, Codable, Identifiable {
         self.weightedPct = weightedPct
     }
     
-    public static func sample() -> GradeCalculationPart {
-        return PreviewData.course1GradeCalculationPart1
-    }
+    public static let preview: GradeCalculationPart = PreviewData.course1GradeCalculationPart1
 }

@@ -24,7 +24,5 @@ public struct ClassListing: Hashable, Codable, Identifiable {
         self.teacherEmail = teacherEmail
     }
     
-    public static func sample() -> ClassListing {
-        return PreviewData.classListing1
-    }
+    public static let preview: ClassListing = PreviewData.classListing1
 }
