@@ -8,7 +8,7 @@
 import Foundation
 
 public struct DistrictInfo: Hashable, Codable, Identifiable {
-    public var id: UUID = UUID()
+    public var id: UUID
     public var districtID: String
     public var name: String
     public var address: String
