@@ -10,7 +10,7 @@ import Foundation
 public protocol DataProvider {
     func getMessages() async throws -> String
     func getCalendar() async throws -> String
-    func getAttendance() async throws -> String
+    func getAttendance() async throws -> Attendance
     func getGradebook(reportPeriod: Int?) async throws -> Gradebook
     func getClassNotes() async throws -> String
     func getStudentInfo() async throws -> StudentInfo

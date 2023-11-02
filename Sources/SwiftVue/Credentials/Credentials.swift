@@ -18,5 +18,5 @@ public struct Credentials: Hashable, Codable {
     public var password: String
     public var districtURL: String
     
-    public static let preview: Credentials = Credentials(username: "myUs3rname", password: "myP@ssword", districtURL: "myD1strict")
+    public static let preview: Credentials = PreviewData.credentials
 }

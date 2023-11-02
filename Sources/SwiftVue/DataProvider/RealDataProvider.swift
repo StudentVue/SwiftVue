@@ -83,8 +83,14 @@ public class RealDataProvider: DataProvider {
         return try await makeRequest(method: "StudentCalendar", handle: "PXPWebServices")
     }
     
-    public func getAttendance() async throws -> String {
-        return try await makeRequest(method: "Attendance", handle: "PXPWebServices")
+    public func getAttendance() async throws -> Attendance {
+        let result = try await makeRequest(method: "Attendance", handle: "PXPWebServices")
+        
+        if !result.contains("Attendance") {
+            throw SwiftVueError.invalidCredentials
+        }
+        
+        return try AttendanceParser(string: result).parse()
     }
     
     public func getGradebook(reportPeriod: Int? = nil) async throws -> Gradebook {

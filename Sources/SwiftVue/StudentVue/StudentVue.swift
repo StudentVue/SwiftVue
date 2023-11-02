@@ -33,7 +33,7 @@ extension StudentVue {
         return try await dataProvider.getCalendar()
     }
     
-    public func getAttendance() async throws -> String {
+    public func getAttendance() async throws -> Attendance {
         return try await dataProvider.getAttendance()
     }
     

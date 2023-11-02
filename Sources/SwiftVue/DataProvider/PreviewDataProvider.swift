@@ -28,7 +28,7 @@ public class PreviewDataProvider: DataProvider {
         throw SwiftVueError.notImplemented("Calendar")
     }
     
-    public func getAttendance() async throws -> String {
+    public func getAttendance() async throws -> Attendance {
         guard validCredentials else { throw SwiftVueError.invalidCredentials }
         throw SwiftVueError.notImplemented("Attendance")
     }
