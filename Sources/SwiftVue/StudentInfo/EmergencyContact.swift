@@ -27,4 +27,17 @@ public struct EmergencyContact: Hashable, Codable, Identifiable {
     }
     
     public static let preview: EmergencyContact = PreviewData.contact1
+    
+    internal init?(attributes: [String: String]) {
+        guard let nameAttribute = attributes["Name"],
+              let relationshipAttribute = attributes["Relationship"],
+              let homePhoneAttribute = attributes["HomePhone"],
+              let workPhoneAttribute = attributes["WorkPhone"],
+              let otherPhoneAttribute = attributes["OtherPhone"],
+              let mobilePhoneAttribute = attributes["MobilePhone"] else {
+            return nil
+        }
+        
+        self.init(name: nameAttribute, relationship: relationshipAttribute, homePhone: homePhoneAttribute, workPhone: workPhoneAttribute, otherPhone: otherPhoneAttribute, mobilePhone: mobilePhoneAttribute)
+    }
 }

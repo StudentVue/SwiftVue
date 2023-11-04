@@ -9,8 +9,7 @@ import Foundation
 
 public class ScheduleParser: NSObject, XMLParserDelegate {
     private var schedule: Schedule?
-    private var termIndex: String?
-    private var termIndexName: String?
+    private var scheduleAttributes: [String: String]?
     private var todaySchedule: TodayScheduleInfoData?
     private var classLists: [ClassListing] = []
     private var termLists: [TermListing] = []
@@ -26,43 +25,77 @@ public class ScheduleParser: NSObject, XMLParserDelegate {
     private var error: Error?
     
     public init(string: String) {
-        parser = XMLParser(data: Data(string.utf8))
+        self.parser = XMLParser(data: Data(string.utf8))
         super.init()
-        parser.delegate = self
-        parser.shouldProcessNamespaces = false
-        parser.shouldReportNamespacePrefixes = false
-        parser.shouldResolveExternalEntities = false
+        self.parser.delegate = self
+        self.parser.shouldProcessNamespaces = false
+        self.parser.shouldReportNamespacePrefixes = false
+        self.parser.shouldResolveExternalEntities = false
     }
     
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        parser.abortParsing()
+        self.parser.abortParsing()
         self.error = parseError
     }
     
     public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
-        parser.abortParsing()
+        self.parser.abortParsing()
         self.error = validationError
     }
     
     public func parser(_ parser: XMLParser, didStartElement: String, namespaceURI: String?, qualifiedName: String?, attributes: [String : String]) {
         switch didStartElement {
         case "StudentClassSchedule":
-            termIndex = attributes["TermIndex"] ?? "Error"
-            termIndexName = attributes["TermIndexName"] ?? "Error"
+            self.scheduleAttributes = attributes
         case "TodayScheduleInfoData":
-            todaySchedule = TodayScheduleInfoData(date: attributes["Date"] ?? "Error", schoolInfos: [])
+            guard let todaySchedule = TodayScheduleInfoData(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.todaySchedule = todaySchedule
         case "SchoolInfo":
-            schoolInfo = SchoolInfo(name: attributes["SchoolName"] ?? "Error", bellScheduleName: attributes["BellSchedName"] ?? "Error", classes: [])
+            guard let schoolInfo = SchoolInfo(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.schoolInfo = schoolInfo
         case "ClassInfo":
-            classes.append(ClassInfo(period: attributes["Period"] ?? "Error", className: attributes["ClassName"] ?? "Error", startTime: attributes["StartTime"] ?? "Error", endTime: attributes["EndTime"] ?? "Error", teacher: attributes["TeacherName"] ?? "Error", roomName: attributes["RoomName"] ?? "Error", teacherEmail: attributes["TeacherEmail"] ?? "Error", endDate: attributes["EndDate"] ?? "Error", startDate: attributes["StartDate"] ?? "Error"))
+            guard let classInfo = ClassInfo(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.classes.append(classInfo)
         case "ClassListing":
-            classLists.append(ClassListing(period: attributes["Period"] ?? "Error", courseTitle: attributes["CourseTitle"] ?? "Error", roomName: attributes["RoomName"] ?? "Error", teacher: attributes["Teacher"] ?? "Error", teacherEmail: attributes["TeacherEmail"] ?? "Error"))
+            guard let classListing = ClassListing(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.classLists.append(classListing)
         case "TermListing":
-            termListing = TermListing(termIndex: attributes["TermIndex"] ?? "Error", termCode: attributes["TermCode"] ?? "Error", termName: attributes["TermName"] ?? "Error", beginDate: attributes["BeginDate"] ?? "Error", endDate: attributes["EndDate"] ?? "Error", termDefCodes: [])
+            guard let termListing = TermListing(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.termListing = termListing
         case "TermDefCode":
-            termDefCodes.append(TermDefCode(termDefName: attributes["TermDefName"] ?? "Error"))
+            guard let termDefCode = TermDefCode(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.termDefCodes.append(termDefCode)
         case "ConcurrentSchoolStudentClassSchedule":
-            concurrentSchoolClassSchedule = ConcurrentClassSchedule(schoolName: attributes["SchoolName"] ?? "Error", termIndex: attributes["ConSchTermIndex"] ?? "Error", termIndexName: attributes["ConSchTermIndexName"] ?? "Error", classLists: [], termLists: [])
+            guard let concurrentClassSchedule = ConcurrentClassSchedule(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.concurrentSchoolClassSchedule = concurrentClassSchedule
         default:
             return
         }
@@ -71,47 +104,59 @@ public class ScheduleParser: NSObject, XMLParserDelegate {
     public func parser(_ parser: XMLParser, didEndElement: String, namespaceURI: String?, qualifiedName: String?) {
         switch didEndElement {
         case "SchoolInfo":
-            schoolInfo?.classes = classes
-            classes = []
-            if let schoolInfo {
-                schoolInfos.append(schoolInfo)
+            self.schoolInfo?.classes = classes
+            self.classes = []
+            guard let schoolInfo else {
+                self.parser.abortParsing()
+                return
             }
+            
+            self.schoolInfos.append(schoolInfo)
         case "TodayScheduleInfoData":
-            todaySchedule?.schoolInfos = schoolInfos
-            schoolInfos = []
-            if let todaySchedule, let termIndex, let termIndexName {
-                schedule = Schedule(termIndex: termIndex, termIndexName: termIndexName, todaySchedule: todaySchedule, classLists: [], termLists: [], concurrentClassSchedules: [])
+            self.todaySchedule?.schoolInfos = schoolInfos
+            self.schoolInfos = []
+            guard let schedule = Schedule(attributes: scheduleAttributes, todaySchedule: todaySchedule) else {
+                self.parser.abortParsing()
+                return
             }
+            
+            self.schedule = schedule
         case "ClassLists":
-            schedule?.classLists = classLists
-            classLists = []
+            self.schedule?.classLists = classLists
+            self.classLists = []
         case "TermListing":
-            termListing?.termDefCodes = termDefCodes
-            termDefCodes = []
-            if let termListing {
-                termLists.append(termListing)
+            self.termListing?.termDefCodes = termDefCodes
+            self.termDefCodes = []
+            guard let termListing else {
+                self.parser.abortParsing()
+                return
             }
+            
+            self.termLists.append(termListing)
         case "TermLists":
-            schedule?.termLists = termLists
-            termLists = []
+            self.schedule?.termLists = termLists
+            self.termLists = []
         case "ConcurrentSchoolStudentClassSchedule":
-            concurrentSchoolClassSchedule?.classLists = classLists
-            classLists = []
-            concurrentSchoolClassSchedule?.termLists = termLists
-            termLists = []
-            if let concurrentSchoolClassSchedule {
-                concurrentSchoolStudentClassSchedules.append(concurrentSchoolClassSchedule)
+            self.concurrentSchoolClassSchedule?.classLists = classLists
+            self.classLists = []
+            self.concurrentSchoolClassSchedule?.termLists = termLists
+            self.termLists = []
+            guard let concurrentSchoolClassSchedule else {
+                self.parser.abortParsing()
+                return
             }
+            
+            self.concurrentSchoolStudentClassSchedules.append(concurrentSchoolClassSchedule)
         case "ConcurrentSchoolStudentClassSchedules":
-            schedule?.concurrentClassSchedules = concurrentSchoolStudentClassSchedules
-            concurrentSchoolStudentClassSchedules = []
+            self.schedule?.concurrentClassSchedules = concurrentSchoolStudentClassSchedules
+            self.concurrentSchoolStudentClassSchedules = []
         default:
             return
         }
     }
     
     public func parse() throws -> Schedule {
-        parser.parse()
+        self.parser.parse()
         
         if let error {
             throw error

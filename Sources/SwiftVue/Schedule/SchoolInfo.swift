@@ -21,4 +21,13 @@ public struct SchoolInfo: Hashable, Codable, Identifiable {
     }
     
     public static let preview: SchoolInfo = PreviewData.schoolInfo1
+    
+    internal init?(attributes: [String: String]) {
+        guard let nameAttribute = attributes["SchoolName"],
+              let bellScheduleNameAttribute = attributes["BellSchedName"] else {
+            return nil
+        }
+        
+        self.init(name: nameAttribute, bellScheduleName: bellScheduleNameAttribute, classes: [])
+    }
 }

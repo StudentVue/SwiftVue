@@ -25,40 +25,76 @@ public class GradebookParser: NSObject, XMLParserDelegate {
     private var error: Error?
     
     public init(string: String) {
-        parser = XMLParser(data: Data(string.utf8))
+        self.parser = XMLParser(data: Data(string.utf8))
         super.init()
-        parser.delegate = self
-        parser.shouldProcessNamespaces = false
-        parser.shouldReportNamespacePrefixes = false
-        parser.shouldResolveExternalEntities = false
+        self.parser.delegate = self
+        self.parser.shouldProcessNamespaces = false
+        self.parser.shouldReportNamespacePrefixes = false
+        self.parser.shouldResolveExternalEntities = false
     }
     
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        parser.abortParsing()
+        self.parser.abortParsing()
         self.error = parseError
     }
     
     public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
-        parser.abortParsing()
+        self.parser.abortParsing()
         self.error = validationError
     }
+    
     
     public func parser(_ parser: XMLParser, didStartElement: String, namespaceURI: String?, qualifiedName: String?, attributes: [String : String]) {
         switch didStartElement {
         case "ReportPeriod":
-            reportingPeriods.append(ReportPeriod(index: attributes["Index"] ?? "", name: attributes["GradePeriod"] ?? "Error", startDate: attributes["StartDate"] ?? "Error", endDate: attributes["EndDate"] ?? "Error"))
+            guard let reportPeriod = ReportPeriod(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.reportingPeriods.append(reportPeriod)
         case "ReportingPeriod":
-            reportingPeriod = ReportingPeriod(name: attributes["GradePeriod"] ?? "Error", startDate: attributes["StartDate"] ?? "Error", endDate: attributes["EndDate"] ?? "Error")
+            guard let reportingPeriod = ReportingPeriod(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.reportingPeriod = reportingPeriod
         case "Course":
-            course = Course(period: attributes["Period"] ?? "0", title: attributes["Title"] ?? "Error", room: attributes["Room"] ?? "Error", staff: attributes["Staff"] ?? "Error", staffEmail: attributes["StaffEMail"] ?? "Error", marks: [])
+            guard let course = Course(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.course = course
         case "Mark":
-            mark = Mark(name: attributes["MarkName"] ?? "Error", scoreString: attributes["CalculatedScoreString"] ?? "Error", scoreRaw: attributes["CalculatedScoreRaw"] ?? "0000", gradeCalculationSumary: [], assignments: [])
+            guard let mark = Mark(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.mark = mark
         case "AssignmentGradeCalc":
-            gradeSummary.append(GradeCalculationPart(name: attributes["Type"] ?? "Error", weight: attributes["Weight"] ?? "Error", points: attributes["Points"] ?? "Error", pointsPossible: attributes["PointsPossible"] ?? "Error", calculatedMark: attributes["CalculatedMark"] ?? "Error", weightedPct: attributes["WeightedPct"] ?? "Error"))
+            guard let gradeCalculationPart = GradeCalculationPart(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.gradeSummary.append(gradeCalculationPart)
         case "Assignment":
-            assignment = Assignment(name: attributes["Measure"] ?? "Error", type: attributes["Type"] ?? "Error", date: attributes["Date"] ?? "Error", due: attributes["DueDate"] ?? "Error", score: attributes["Score"] ?? "Error", scoreType: attributes["ScoreType"] ?? "Error", points: attributes["Points"] ?? "Error", notes: attributes["Notes"] ?? "Error", description: attributes["MeasureDescription"] ?? "Error", resources: [])
+            guard let assinment = Assignment(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.assignment = assinment
         case "Resource":
-            resources.append(Resource(description: attributes["ResourceDescription"] ?? "Error", name: attributes["ResourceName"] ?? "Error", type: attributes["Type"] ?? "Error", url: attributes["URL"] ?? "Error"))
+            guard let resource = Resource(attributes: attributes) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.resources.append(resource)
         default:
             return
         }
@@ -67,38 +103,53 @@ public class GradebookParser: NSObject, XMLParserDelegate {
     public func parser(_ parser: XMLParser, didEndElement: String, namespaceURI: String?, qualifiedName: String?) {
         switch didEndElement {
         case "Assignment":
-            assignment?.resources = resources
-            resources = []
-            if let assignment {
-                assignments.append(assignment)
+            self.assignment?.resources = resources
+            self.resources = []
+            
+            guard let assignment else {
+                self.parser.abortParsing()
+                return
             }
+            
+            self.assignments.append(assignment)
         case "Mark":
-            mark?.gradeCalculationSumary = gradeSummary
-            gradeSummary = []
-            mark?.assignments = assignments
-            assignments = []
-            if let mark {
-                marks.append(mark)
+            self.mark?.gradeCalculationSumary = gradeSummary
+            self.gradeSummary = []
+            self.mark?.assignments = assignments
+            self.assignments = []
+            
+            guard let mark else {
+                self.parser.abortParsing()
+                return
             }
+            
+            self.marks.append(mark)
         case "Course":
-            course?.marks = marks
-            marks = []
-            if let course {
-                courses.append(course)
+            self.course?.marks = marks
+            self.marks = []
+            
+            guard let course else {
+                self.parser.abortParsing()
+                return
             }
+            
+            self.courses.append(course)
         case "Gradebook":
-            if let reportingPeriod {
-                gradebook = Gradebook(reportingPeriods: reportingPeriods, reportingPeriod: reportingPeriod, courses: courses)
+            guard let reportingPeriod else {
+                self.parser.abortParsing()
+                return
             }
-            reportingPeriods = []
-            courses = []
+            
+            self.gradebook = Gradebook(reportingPeriods: reportingPeriods, reportingPeriod: reportingPeriod, courses: courses)
+            self.reportingPeriods = []
+            self.courses = []
         default:
             return
         }
     }
     
     public func parse() throws -> Gradebook {
-        parser.parse()
+        self.parser.parse()
         
         if let error {
             throw error

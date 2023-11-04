@@ -16,66 +16,54 @@ public class AttendanceParser: NSObject, XMLParserDelegate {
     private var error: Error?
     
     public init(string: String) {
-        parser = XMLParser(data: Data(string.utf8))
+        self.parser = XMLParser(data: Data(string.utf8))
         super.init()
-        parser.delegate = self
-        parser.shouldProcessNamespaces = false
-        parser.shouldReportNamespacePrefixes = false
-        parser.shouldResolveExternalEntities = false
+        self.parser.delegate = self
+        self.parser.shouldProcessNamespaces = false
+        self.parser.shouldReportNamespacePrefixes = false
+        self.parser.shouldResolveExternalEntities = false
     }
     
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        parser.abortParsing()
+        self.parser.abortParsing()
         self.error = parseError
     }
     
     public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
-        parser.abortParsing()
+        self.parser.abortParsing()
         self.error = validationError
     }
     
     public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         switch elementName {
         case "Attendance":
-            attendance = Attendance(
-                type: attributeDict["Type"] ?? "Error",
-                startPeriod: attributeDict["StartPeriod"] ?? "Error",
-                endPeriod: attributeDict["EndPeriod"] ?? "Error",
-                periodCount: attributeDict["PeriodCount"] ?? "Error", 
-                schoolName: attributeDict["SchoolName"] ?? "Error",
-                absences: [],
-                totalExcused: [],
-                totalTardies: [],
-                totalUnexcused: [], 
-                totalActivities: [],
-                TotalUnexcusedTardies: []
-            )
+            guard let attendance = Attendance(attributes: attributeDict) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.attendance = attendance
         case "Absence":
-            absence = Absence(
-                absenceDate: attributeDict["AbsenceDate"] ?? "Error",
-                reason: attributeDict["Reason"] ?? "Error",
-                note: attributeDict["Note"] ?? "Error",
-                dailyIconName: attributeDict["DailyIconName"] ?? "Error",
-                codeAllDayReasonType: attributeDict["CodeAllDayReasonType"] ?? "Error",
-                codeAllDayDescription: attributeDict["CodeAllDayDescription"] ?? "Error",
-                periods: []
-            )
+            guard let absence = Absence(attributes: attributeDict) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.absence = absence
         case "Period":
-            absence?.periods.append(Period(
-                number: attributeDict["Number"] ?? "Error",
-                name: attributeDict["Name"] ?? "Error",
-                reason: attributeDict["Reason"] ?? "Error",
-                course: attributeDict["Course"] ?? "Error",
-                staff: attributeDict["Staff"] ?? "Error",
-                staffEmail: attributeDict["StaffEMail"] ?? "Error",
-                iconName: attributeDict["IconName"] ?? "Error",
-                schoolName: attributeDict["SchoolName"] ?? "Error")
-            )
+            guard let period = Period(attributes: attributeDict) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.absence?.periods.append(period)
         case "PeriodTotal":
-            periodTotals.append(PeriodTotal(
-                number: attributeDict["Number"] ?? "Error",
-                total: attributeDict["Total"] ?? "Error")
-            )
+            guard let periodTotal = PeriodTotal(attributes: attributeDict) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.periodTotals.append(periodTotal)
         default:
             return
         }
@@ -84,31 +72,34 @@ public class AttendanceParser: NSObject, XMLParserDelegate {
     public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         switch elementName {
         case "Absence":
-            if let absence {
-                attendance?.absences.append(absence)
+            guard let absence else {
+                self.parser.abortParsing()
+                return
             }
+            
+            self.attendance?.absences.append(absence)
         case "TotalExcused":
-            attendance?.totalExcused = periodTotals
-            periodTotals = []
+            self.attendance?.totalExcused = periodTotals
+            self.periodTotals = []
         case "TotalTardies":
-            attendance?.totalTardies = periodTotals
-            periodTotals = []
+            self.attendance?.totalTardies = periodTotals
+            self.periodTotals = []
         case "TotalUnexcused":
-            attendance?.totalUnexcused = periodTotals
-            periodTotals = []
+            self.attendance?.totalUnexcused = periodTotals
+            self.periodTotals = []
         case "TotalActivities":
-            attendance?.totalActivities = periodTotals
-            periodTotals = []
+            self.attendance?.totalActivities = periodTotals
+            self.periodTotals = []
         case "TotalUnexcusedTardies":
-            attendance?.TotalUnexcusedTardies = periodTotals
-            periodTotals = []
+            self.attendance?.TotalUnexcusedTardies = periodTotals
+            self.periodTotals = []
         default:
             return
         }
     }
     
     public func parse() throws -> Attendance {
-        parser.parse()
+        self.parser.parse()
         
         if let error {
             throw error

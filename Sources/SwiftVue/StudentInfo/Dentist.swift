@@ -23,4 +23,15 @@ public struct Dentist: Hashable, Codable, Identifiable {
     }
     
     public static let preview: Dentist = PreviewData.dentist1
+    
+    internal init?(attributes: [String: String]) {
+        guard let nameAttribute = attributes["Name"],
+              let officeAttribute = attributes["Office"],
+              let phoneAttribute = attributes["Phone"],
+              let extnAttribute = attributes["Extn"] else {
+            return nil
+        }
+        
+        self.init(name: nameAttribute, office: officeAttribute, phone: phoneAttribute, extn: extnAttribute)
+    }
 }

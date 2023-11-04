@@ -152,7 +152,7 @@ public class RealDataProvider: DataProvider {
     }
     
     public func getDistrictList(zip: String) async throws -> [DistrictInfo] {
-        let string = try await makeRequest(method: "GetMatchingDistrictList", params: ["Key":"5E4B7859-B805-474B-A833-FDB15D205D40", "MatchToDistrictZipCode":"\(zip)"], handle: "HDInfoServices", user: true)
+        let string = try await makeRequest(method: "GetMatchingDistrictList", params: ["Key":"5E4B7859-B805-474B-A833-FDB15D205D40", "MatchToDistrictZipCode":"\(zip)"], handle: "HDInfoServices", user: false)
         if !string.contains("DistrictList") {
             throw SwiftVueError.invalidCredentials
         }

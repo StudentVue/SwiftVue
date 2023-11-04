@@ -19,4 +19,13 @@ public struct UserDefinedItem: Hashable, Codable, Identifiable {
     }
     
     public static let preview: UserDefinedItem = PreviewData.useDefinedItem1
+    
+    internal init?(attributes: [String: String]) {
+        guard let itemLabelAttribute = attributes["ItemLabel"],
+              let valueAttribute = attributes["Value"] else {
+            return nil
+        }
+        
+        self.init(itemLabel: itemLabelAttribute, value: valueAttribute)
+    }
 }

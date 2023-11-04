@@ -15,4 +15,12 @@ public struct TermDefCode: Hashable, Codable, Identifiable {
         self.id = id
         self.termDefName = termDefName
     }
+    
+    internal init?(attributes: [String: String]) {
+        guard let termDefNameAttribute = attributes["TermDefName"] else {
+            return nil
+        }
+        
+        self.init(termDefName: termDefNameAttribute)
+    }
 }

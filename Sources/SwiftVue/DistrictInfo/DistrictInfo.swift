@@ -23,4 +23,15 @@ public struct DistrictInfo: Hashable, Codable, Identifiable {
     }
     
     public static let preview: DistrictInfo = PreviewData.districtInfo1
+    
+    internal init?(attributes: [String: String]) {
+        guard let districtIDAttribute = attributes["DistrictID"],
+              let nameAttribute = attributes["Name"],
+              let addressAttribute = attributes["Address"],
+              let urlAttribute = attributes["PvueURL"] else {
+            return nil
+        }
+        
+        self.init(districtID: districtIDAttribute, name: nameAttribute, address: addressAttribute, url: urlAttribute)
+    }
 }
