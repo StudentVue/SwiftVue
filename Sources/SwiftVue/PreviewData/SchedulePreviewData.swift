@@ -11,57 +11,57 @@ extension PreviewData {
     public static let classInfo1 = ClassInfo(
         period: 2,
         className: "AP Chemistry",
-        startTime: DateComponents(hour: 12, minute: 20).date!,
-        endTime: DateComponents(hour: 13, minute: 50).date!,
+        startTime: Calendar.current.date(from: DateComponents(hour: 12, minute: 20))!,
+        endTime: Calendar.current.date(from: DateComponents(hour: 13, minute: 50))!,
         teacher: "Cricke, Watson",
         roomName: "216",
         teacherEmail: "w.cricke@school.edu",
-        endDate: DateComponents(year: 2023, month: 10, day: 19, hour: 13, minute: 50, second: 0).date!,
-        startDate: DateComponents(year: 2023, month: 10, day: 19, hour: 12, minute: 20, second: 0).date!
+        endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19, hour: 13, minute: 50, second: 0))!,
+        startDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19, hour: 12, minute: 20, second: 0))!
     )
     public static let classInfo2 = ClassInfo(
         period: 1,
         className: "Off Campus",
-        startTime: DateComponents(hour: 7, minute: 25).date!,
-        endTime: DateComponents(hour: 8, minute: 17).date!,
+        startTime: Calendar.current.date(from: DateComponents(hour: 7, minute: 25))!,
+        endTime: Calendar.current.date(from: DateComponents(hour: 8, minute: 17))!,
         teacher: "Domagall, Mitchel",
         roomName: "NA",
         teacherEmail: "domagall_m@school.edu",
-        endDate: DateComponents(year: 2023, month: 10, day: 19, hour: 8, minute: 17, second: 0).date!,
-        startDate: DateComponents(year: 2023, month: 10, day: 19, hour: 7, minute: 25, second: 0).date!
+        endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19, hour: 8, minute: 17, second: 0))!,
+        startDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19, hour: 7, minute: 25, second: 0))!
     )
     public static let classInfo3 = ClassInfo(
         period: 3,
         className: "AP English Literature",
-        startTime: DateComponents(hour: 8, minute: 24).date!,
-        endTime: DateComponents(hour: 10, minute: 10).date!,
+        startTime: Calendar.current.date(from: DateComponents(hour: 8, minute: 24))!,
+        endTime: Calendar.current.date(from: DateComponents(hour: 10, minute: 10))!,
         teacher: "Woolf, Virginia",
         roomName: "154",
         teacherEmail: "woolf.v@school.edu",
-        endDate: DateComponents(year: 2023, month: 10, day: 19, hour: 10, minute: 10, second: 0).date!,
-        startDate: DateComponents(year: 2023, month: 10, day: 19, hour: 8, minute: 24, second: 0).date!
+        endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19, hour: 10, minute: 10, second: 0))!,
+        startDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19, hour: 8, minute: 24, second: 0))!
     )
     public static let classInfo4 = ClassInfo(
         period: 5,
         className: "AP Macroeconomics",
-        startTime: DateComponents(hour: 10, minute: 17).date!,
-        endTime: DateComponents(hour: 12, minute: 0).date!,
+        startTime: Calendar.current.date(from: DateComponents(hour: 10, minute: 17))!,
+        endTime: Calendar.current.date(from: DateComponents(hour: 12, minute: 0))!,
         teacher: "Smith, Adam",
         roomName: "486",
         teacherEmail: "smith@school.edu",
-        endDate: DateComponents(year: 2023, month: 10, day: 19, hour: 12, minute: 0, second: 0).date!,
-        startDate: DateComponents(year: 2023, month: 10, day: 19, hour: 10, minute: 17, second: 0).date!
+        endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19, hour: 12, minute: 0, second: 0))!,
+        startDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19, hour: 10, minute: 17, second: 0))!
     )
     public static let classInfo5 = ClassInfo(
         period: 7,
         className: "Elective Period 7",
-        startTime: DateComponents(hour: 12, minute: 42).date!,
-        endTime: DateComponents(hour: 14, minute: 25).date!,
+        startTime: Calendar.current.date(from: DateComponents(hour: 12, minute: 42))!,
+        endTime: Calendar.current.date(from: DateComponents(hour: 14, minute: 25))!,
         teacher: "",
         roomName: "ElectiveBuilding",
         teacherEmail: "",
-        endDate: DateComponents(year: 2023, month: 10, day: 19, hour: 14, minute: 25, second: 0).date!,
-        startDate: DateComponents(year: 2023, month: 10, day: 19, hour: 12, minute: 42, second: 0).date!
+        endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19, hour: 14, minute: 25, second: 0))!,
+        startDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19, hour: 12, minute: 42, second: 0))!
     )
     
     public static let classListing1 = ClassListing(
@@ -150,8 +150,8 @@ extension PreviewData {
         termIndex: 0,
         termCode: "1",
         termName: "Sem 1",
-        beginDate: DateComponents(year: 2023, month: 8, day: 10).date!,
-        endDate: DateComponents(year: 2023, month: 12, day: 20).date!,
+        beginDate: Calendar.current.date(from: DateComponents(year: 2023, month: 8, day: 10))!,
+        endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 20))!,
         termDefCodes: [
             TermDefCode(termDefName: "S1"),
             TermDefCode(termDefName: "YR")
@@ -161,8 +161,8 @@ extension PreviewData {
         termIndex: 1,
         termCode: "2",
         termName: "Sem 2",
-        beginDate: DateComponents(year: 2023, month: 1, day: 5).date!,
-        endDate: DateComponents(year: 2023, month: 5, day: 25).date!,
+        beginDate: Calendar.current.date(from: DateComponents(year: 2023, month: 1, day: 5))!,
+        endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 5, day: 25))!,
         termDefCodes: [
             TermDefCode(termDefName: "S2"),
             TermDefCode(termDefName: "YR")
@@ -186,7 +186,7 @@ extension PreviewData {
         concurrentClassSchedules: [concurrentClassSchedule1]
     )
     
-    public static let todaySchedule1 = TodayScheduleInfoData(date: DateComponents(year: 2023, month: 10, day: 12).date!, schoolInfos: [schoolInfo1, schoolInfo2])
+    public static let todaySchedule1 = TodayScheduleInfoData(date: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 12))!, schoolInfos: [schoolInfo1, schoolInfo2])
     
     public static let concurrentClassSchedule1 = ConcurrentClassSchedule(
         schoolName: "Elective Center",

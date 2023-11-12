@@ -8,15 +8,15 @@
 import Foundation
 
 extension PreviewData {
-    public static let reportPeriod1 = ReportPeriod(index: 0, name: "1st Quarter", startDate: DateComponents(year: 2023, month: 8, day: 21).date!, endDate: DateComponents(year: 2023, month: 10, day: 11).date!)
-    public static let reportPeriod2 = ReportPeriod(index: 1, name: "2nd Quarter", startDate: DateComponents(year: 2023, month: 10, day: 16).date!, endDate: DateComponents(year: 2023, month: 12, day: 15).date!)
-    public static let reportPeriod3 = ReportPeriod(index: 2, name: "3rd Quarter", startDate: DateComponents(year: 2024, month: 1, day: 16).date!, endDate: DateComponents(year: 2024, month: 3, day: 8).date!)
-    public static let reportPeriod4 = ReportPeriod(index: 3, name: "4th Quarter", startDate: DateComponents(year: 2024, month: 3, day: 18).date!, endDate: DateComponents(year: 2024, month: 5, day: 10).date!)
+    public static let reportPeriod1 = ReportPeriod(index: 0, name: "1st Quarter", startDate: Calendar.current.date(from: DateComponents(year: 2023, month: 8, day: 21))!, endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 11))!)
+    public static let reportPeriod2 = ReportPeriod(index: 1, name: "2nd Quarter", startDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 16))!, endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 15))!)
+    public static let reportPeriod3 = ReportPeriod(index: 2, name: "3rd Quarter", startDate: Calendar.current.date(from: DateComponents(year: 2024, month: 1, day: 16))!, endDate: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 8))!)
+    public static let reportPeriod4 = ReportPeriod(index: 3, name: "4th Quarter", startDate: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 18))!, endDate: Calendar.current.date(from: DateComponents(year: 2024, month: 5, day: 10))!)
     
-    public static let reportingPeriod1 = ReportingPeriod(name: "1st Quarter", startDate: DateComponents(year: 2023, month: 8, day: 21).date!, endDate: DateComponents(year: 2023, month: 10, day: 11).date!)
-    public static let reportingPeriod2 = ReportingPeriod(name: "2nd Quarter", startDate: DateComponents(year: 2023, month: 10, day: 16).date!, endDate: DateComponents(year: 2023, month: 12, day: 15).date!)
-    public static let reportingPeriod3 = ReportingPeriod(name: "3rd Quarter", startDate: DateComponents(year: 2024, month: 1, day: 16).date!, endDate: DateComponents(year: 2024, month: 3, day: 8).date!)
-    public static let reportingPeriod4 = ReportingPeriod(name: "4th Quarter", startDate: DateComponents(year: 2024, month: 3, day: 18).date!, endDate: DateComponents(year: 2024, month: 5, day: 10).date!)
+    public static let reportingPeriod1 = ReportingPeriod(name: "1st Quarter", startDate: Calendar.current.date(from: DateComponents(year: 2023, month: 8, day: 21))!, endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 11))!)
+    public static let reportingPeriod2 = ReportingPeriod(name: "2nd Quarter", startDate: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 16))!, endDate: Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 15))!)
+    public static let reportingPeriod3 = ReportingPeriod(name: "3rd Quarter", startDate: Calendar.current.date(from: DateComponents(year: 2024, month: 1, day: 16))!, endDate: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 8))!)
+    public static let reportingPeriod4 = ReportingPeriod(name: "4th Quarter", startDate: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 18))!, endDate: Calendar.current.date(from: DateComponents(year: 2024, month: 5, day: 10))!)
     
     public static let course1GradeCalculationPart1 = GradeCalculationPart(
         name: "Homework",
@@ -348,8 +348,8 @@ extension PreviewData {
     public static let course1Sem1Assignment1 = Assignment(
         name: "Limits and Continuity Quiz",
         type: "Quiz",
-        date: DateComponents(year: 2023, month: 9, day: 15).date!,
-        due: DateComponents(year: 2023, month: 9, day: 15).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 9, day: 15))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 9, day: 15))!,
         score: "25.00 out of 25.0000",
         scoreType: "Raw Score",
         points: "25.00 / 25.0000",
@@ -360,8 +360,8 @@ extension PreviewData {
     public static let course1Sem1Assignment2 = Assignment(
         name: "Derivatives Project",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 10, day: 5).date!,
-        due: DateComponents(year: 2023, month: 10, day: 20).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 5))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 20))!,
         score: "50.00 out of 50.0000",
         scoreType: "Raw Score",
         points: "50.00 / 50.0000",
@@ -372,8 +372,8 @@ extension PreviewData {
     public static let course1Sem1Assignment3 = Assignment(
         name: "Integration Practice Set",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 10, day: 10).date!,
-        due: DateComponents(year: 2023, month: 10, day: 17).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 10))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 17))!,
         score: "15.00 out of 15.0000",
         scoreType: "Raw Score",
         points: "15.00 / 15.0000",
@@ -384,8 +384,8 @@ extension PreviewData {
     public static let course1Sem1Assignment4 = Assignment(
         name: "Midterm Exam",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 11, day: 15).date!,
-        due: DateComponents(year: 2023, month: 11, day: 15).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 11, day: 15))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 11, day: 15))!,
         score: "100.00 out of 100.0000",
         scoreType: "Raw Score",
         points: "100.00 / 100.0000",
@@ -397,8 +397,8 @@ extension PreviewData {
     public static let course1Sem2Assignment1 = Assignment(
         name: "Applications of Integration Essay",
         type: "Homework",
-        date: DateComponents(year: 2024, month: 1, day: 20).date!,
-        due: DateComponents(year: 2024, month: 2, day: 5).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2024, month: 1, day: 20))!,
+        due: Calendar.current.date(from: DateComponents(year: 2024, month: 2, day: 5))!,
         score: "30.00 out of 30.0000",
         scoreType: "Raw Score",
         points: "30.00 / 30.0000",
@@ -409,8 +409,8 @@ extension PreviewData {
     public static let course1Sem2Assignment2 = Assignment(
         name: "Related Rates Problem Set",
         type: "Homework",
-        date: DateComponents(year: 2024, month: 2, day: 10).date!,
-        due: DateComponents(year: 2024, month: 2, day: 17).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2024, month: 2, day: 10))!,
+        due: Calendar.current.date(from: DateComponents(year: 2024, month: 2, day: 17))!,
         score: "20.00 out of 20.0000",
         scoreType: "Raw Score",
         points: "20.00 / 20.0000",
@@ -421,8 +421,8 @@ extension PreviewData {
     public static let course1Sem2Assignment3 = Assignment(
         name: "Differential Equations Quiz",
         type: "Quiz",
-        date: DateComponents(year: 2024, month: 3, day: 15).date!,
-        due: DateComponents(year: 2024, month: 3, day: 15).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 15))!,
+        due: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 15))!,
         score: "25.00 out of 25.0000",
         scoreType: "Raw Score",
         points: "25.00 / 25.0000",
@@ -433,8 +433,8 @@ extension PreviewData {
     public static let course1Sem2Assignment4 = Assignment(
         name: "Final Project Presentation",
         type: "Test",
-        date: DateComponents(year: 2024, month: 5, day: 10).date!,
-        due: DateComponents(year: 2024, month: 5, day: 10).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2024, month: 5, day: 10))!,
+        due: Calendar.current.date(from: DateComponents(year: 2024, month: 5, day: 10))!,
         score: "50.00 out of 50.0000",
         scoreType: "Raw Score",
         points: "50.00 / 50.0000",
@@ -446,8 +446,8 @@ extension PreviewData {
     public static let course2Sem1Assignment1 = Assignment(
         name: "Literary Analysis Essay",
         type: "Assignments/Assessments",
-        date: DateComponents(year: 2023, month: 9, day: 20).date!,
-        due: DateComponents(year: 2023, month: 10, day: 5).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 9, day: 20))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 5))!,
         score: "34.00 out of 40.0000",
         scoreType: "Raw Score",
         points: "34.00 / 40.0000",
@@ -458,8 +458,8 @@ extension PreviewData {
     public static let course2Sem1Assignment2 = Assignment(
         name: "Character Study Presentation",
         type: "Assignments/Assessments",
-        date: DateComponents(year: 2023, month: 10, day: 15).date!,
-        due: DateComponents(year: 2023, month: 10, day: 30).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 15))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 30))!,
         score: "25.5 out of 30.0000",
         scoreType: "Raw Score",
         points: "25.5 / 30.0000",
@@ -470,8 +470,8 @@ extension PreviewData {
     public static let course2Sem1Assignment3 = Assignment(
         name: "Poetry Interpretation",
         type: "Participation and Engagement",
-        date: DateComponents(year: 2023, month: 11, day: 5).date!,
-        due: DateComponents(year: 2023, month: 11, day: 12).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 11, day: 5))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 11, day: 12))!,
         score: "12.75 out of 15.0000",
         scoreType: "Raw Score",
         points: "12.75 / 15.0000",
@@ -482,8 +482,8 @@ extension PreviewData {
     public static let course2Sem1Assignment4 = Assignment(
         name: "Midterm Exam",
         type: "Assignments/Assessments",
-        date: DateComponents(year: 2023, month: 12, day: 10).date!,
-        due: DateComponents(year: 2023, month: 12, day: 10).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 10))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 10))!,
         score: "85.00 out of 100.0000",
         scoreType: "Raw Score",
         points: "85.00 / 100.0000",
@@ -495,8 +495,8 @@ extension PreviewData {
     public static let course2Sem2Assignment1 = Assignment(
         name: "Literary Criticism Essay",
         type: "Assignments/Assessments",
-        date: DateComponents(year: 2023, month: 2, day: 15).date!,
-        due: DateComponents(year: 2023, month: 3, day: 5).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 2, day: 15))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 3, day: 5))!,
         score: "38.25 out of 45.0000",
         scoreType: "Raw Score",
         points: "38.25 / 45.0000",
@@ -507,8 +507,8 @@ extension PreviewData {
     public static let course2Sem2Assignment2 = Assignment(
         name: "AP Practice",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 3, day: 10).date!,
-        due: DateComponents(year: 2023, month: 3, day: 17).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 3, day: 10))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 3, day: 17))!,
         score: "17.00 out of 20.0000",
         scoreType: "Raw Score",
         points: "17.00 / 20.0000",
@@ -519,8 +519,8 @@ extension PreviewData {
     public static let course2Sem2Assignment3 = Assignment(
         name: "Literary Magazine Contribution",
         type: "Assignments/Assessments",
-        date: DateComponents(year: 2023, month: 4, day: 20).date!,
-        due: DateComponents(year: 2023, month: 4, day: 25).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 4, day: 20))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 4, day: 25))!,
         score: "29.75 out of 35.0000",
         scoreType: "Raw Score",
         points: "29.75 / 35.0000",
@@ -531,8 +531,8 @@ extension PreviewData {
     public static let course2Sem2Assignment4 = Assignment(
         name: "Final Presentation on a Classic Novel",
         type: "Final Exam",
-        date: DateComponents(year: 2023, month: 5, day: 10).date!,
-        due: DateComponents(year: 2023, month: 5, day: 10).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 5, day: 10))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 5, day: 10))!,
         score: "51.00 out of 60.0000",
         scoreType: "Raw Score",
         points: "51.00 / 60.0000",
@@ -544,8 +544,8 @@ extension PreviewData {
     public static let course3Sem1Assignment1 = Assignment(
         name: "Economic Systems Research Paper",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 9, day: 25).date!,
-        due: DateComponents(year: 2023, month: 10, day: 10).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 9, day: 25))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 10))!,
         score: "3",
         scoreType: "0-4 Scale",
         points: "3.00 / 4.0000",
@@ -556,8 +556,8 @@ extension PreviewData {
     public static let course3Sem1Assignment2 = Assignment(
         name: "Supply and Demand Simulation",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 10, day: 15).date!,
-        due: DateComponents(year: 2023, month: 10, day: 30).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 15))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 30))!,
         score: "3",
         scoreType: "0-4 Scale",
         points: "3.00 / 4.0000",
@@ -568,8 +568,8 @@ extension PreviewData {
     public static let course3Sem1Assignment3 = Assignment(
         name: "Fiscal Policy Analysis",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 11, day: 5).date!,
-        due: DateComponents(year: 2023, month: 11, day: 12).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 11, day: 5))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 11, day: 12))!,
         score: "3",
         scoreType: "0-4 Scale",
         points: "3.00 / 4.0000",
@@ -580,8 +580,8 @@ extension PreviewData {
     public static let course3Sem1Assignment4 = Assignment(
         name: "Midterm Exam",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 12, day: 10).date!,
-        due: DateComponents(year: 2023, month: 12, day: 10).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 10))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 10))!,
         score: "75.00 out of 100.0000",
         scoreType: "Raw Score",
         points: "75.00 / 100.0000",
@@ -593,8 +593,8 @@ extension PreviewData {
     public static let course3Sem2Assignment1 = Assignment(
         name: "Monetary Policy Analysis",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 2, day: 15).date!,
-        due: DateComponents(year: 2023, month: 3, day: 5).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 2, day: 15))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 3, day: 5))!,
         score: "3",
         scoreType: "0-4 Scale",
         points: "3.00 / 4.0000",
@@ -605,8 +605,8 @@ extension PreviewData {
     public static let course3Sem2Assignment2 = Assignment(
         name: "International Trade Debate",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 3, day: 10).date!,
-        due: DateComponents(year: 2023, month: 3, day: 17).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 3, day: 10))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 3, day: 17))!,
         score: "3",
         scoreType: "0-4 Scale",
         points: "3.00 / 4.0000",
@@ -617,8 +617,8 @@ extension PreviewData {
     public static let course3Sem2Assignment3 = Assignment(
         name: "Economic Forecasting Project",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 4, day: 20).date!,
-        due: DateComponents(year: 2023, month: 4, day: 25).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 4, day: 20))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 4, day: 25))!,
         score: "3",
         scoreType: "0-4 Scale",
         points: "3.00 / 4.0000",
@@ -629,8 +629,8 @@ extension PreviewData {
     public static let course3Sem2Assignment4 = Assignment(
         name: "Final Presentation on Economic Trends",
         type: "Final Exam",
-        date: DateComponents(year: 2023, month: 5, day: 10).date!,
-        due: DateComponents(year: 2023, month: 5, day: 10).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 5, day: 10))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 5, day: 10))!,
         score: "75.00 out of 100.0000",
         scoreType: "Raw Score",
         points: "75.00 / 100.0000",
@@ -642,8 +642,8 @@ extension PreviewData {
     public static let course4Sem1Assignment1 = Assignment(
         name: "Chemical Bonding Quiz",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 9, day: 20).date!,
-        due: DateComponents(year: 2023, month: 9, day: 20).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 9, day: 20))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 9, day: 20))!,
         score: "13.75 out of 20.0000",
         scoreType: "Raw Score",
         points: "13.75 / 20.0000",
@@ -654,8 +654,8 @@ extension PreviewData {
     public static let course4Sem1Assignment2 = Assignment(
         name: "Stoichiometry Lab Report",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 10, day: 10).date!,
-        due: DateComponents(year: 2023, month: 10, day: 25).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 10))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 25))!,
         score: "22.00 out of 40.0000",
         scoreType: "Raw Score",
         points: "22.00 / 40.0000",
@@ -666,8 +666,8 @@ extension PreviewData {
     public static let course4Sem1Assignment3 = Assignment(
         name: "Gas Laws Problem Set",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 10, day: 15).date!,
-        due: DateComponents(year: 2023, month: 10, day: 22).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 15))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 22))!,
         score: "8.25 out of 15.0000",
         scoreType: "Raw Score",
         points: "8.25 / 15.0000",
@@ -678,8 +678,8 @@ extension PreviewData {
     public static let course4Sem1Assignment4 = Assignment(
         name: "Midterm Exam",
         type: "Homework",
-        date: DateComponents(year: 2023, month: 11, day: 20).date!,
-        due: DateComponents(year: 2023, month: 11, day: 20).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2023, month: 11, day: 20))!,
+        due: Calendar.current.date(from: DateComponents(year: 2023, month: 11, day: 20))!,
         score: "55.00 out of 100.0000",
         scoreType: "Raw Score",
         points: "55.00 / 100.0000",
@@ -691,8 +691,8 @@ extension PreviewData {
     public static let course4Sem2Assignment1 = Assignment(
         name: "Chemical Kinetics Lab",
         type: "Homework",
-        date: DateComponents(year: 2024, month: 1, day: 30).date!,
-        due: DateComponents(year: 2024, month: 2, day: 15).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2024, month: 1, day: 30))!,
+        due: Calendar.current.date(from: DateComponents(year: 2024, month: 2, day: 15))!,
         score: "24.75 out of 45.0000",
         scoreType: "Raw Score",
         points: "24.75 / 45.0000",
@@ -703,8 +703,8 @@ extension PreviewData {
     public static let course4Sem2Assignment2 = Assignment(
         name: "Acid-Base Titration Quiz",
         type: "Homework",
-        date: DateComponents(year: 2024, month: 2, day: 25).date!,
-        due: DateComponents(year: 2024, month: 2, day: 25).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2024, month: 2, day: 25))!,
+        due: Calendar.current.date(from: DateComponents(year: 2024, month: 2, day: 25))!,
         score: "13.75 out of 25.0000",
         scoreType: "Raw Score",
         points: "13.75 / 25.0000",
@@ -715,8 +715,8 @@ extension PreviewData {
     public static let course4Sem2Assignment3 = Assignment(
         name: "Chemical Equilibrium Problem Set",
         type: "Homework",
-        date: DateComponents(year: 2024, month: 3, day: 15).date!,
-        due: DateComponents(year: 2024, month: 3, day: 22).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 15))!,
+        due: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 22))!,
         score: "11.00 out of 20.0000",
         scoreType: "Raw Score",
         points: "11.00 / 20.0000",
@@ -727,8 +727,8 @@ extension PreviewData {
     public static let course4Sem2Assignment4 = Assignment(
         name: "Final Project - Chemical Reactions",
         type: "Final Exam",
-        date: DateComponents(year: 2024, month: 4, day: 20).date!,
-        due: DateComponents(year: 2024, month: 5, day: 10).date!,
+        date: Calendar.current.date(from: DateComponents(year: 2024, month: 4, day: 20))!,
+        due: Calendar.current.date(from: DateComponents(year: 2024, month: 5, day: 10))!,
         score: "30.25 out of 50.0000",
         scoreType: "Raw Score",
         points: "30.25 / 50.0000",
