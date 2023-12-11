@@ -73,8 +73,8 @@ extension StudentVue {
         return try await dataProvider.getDocument(documentGUID: documentGUID)
     }
     
-    public func getDistrictList(zip: String) async throws -> [DistrictInfo] {
-        return try await dataProvider.getDistrictList(zip: zip)
+    public static func getDistrictList(zip: String) async throws -> [DistrictInfo] {
+        return try await RealDataProvider.getDistrictList(zip: zip)
     }
     
     public func getMailInboxCount() async throws -> String {

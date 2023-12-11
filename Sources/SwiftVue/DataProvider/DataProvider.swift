@@ -20,7 +20,8 @@ public protocol DataProvider {
     func getReportCard(documentGUID: String) async throws -> String
     func listDocuments() async throws -> String
     func getDocument(documentGUID: String) async throws -> String
-    func getDistrictList(zip: String) async throws -> [DistrictInfo]
     func getMailInboxCount() async throws -> String
     func verifyCredentials() async throws -> Bool
+    
+    static func getDistrictList(zip: String) async throws -> [DistrictInfo]
 }

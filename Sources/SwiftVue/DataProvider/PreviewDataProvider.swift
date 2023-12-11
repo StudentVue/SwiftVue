@@ -8,17 +8,15 @@
 import Foundation
 
 public class PreviewDataProvider: DataProvider {
+    public static var delayNanoseconds = UInt64(2e9)
     private let validCredentials: Bool
-    public var delayNanoseconds: UInt64
     
-    public init(credentials: Credentials = Credentials.preview, delayNanoseconds: UInt64 = UInt64(2e9)) {
+    public init(credentials: Credentials = Credentials.preview) {
         self.validCredentials = credentials == Credentials.preview
-        self.delayNanoseconds = delayNanoseconds
     }
     
-    public init(username: String, password: String, districtURL: String, delayNanoseconds: UInt64 = UInt64(2e9)) {
+    public init(username: String, password: String, districtURL: String) {
         self.validCredentials = Credentials(username: username, password: password, districtURL: districtURL) == Credentials.preview
-        self.delayNanoseconds = delayNanoseconds
     }
     
     public func getMessages() async throws -> String {
@@ -38,7 +36,7 @@ public class PreviewDataProvider: DataProvider {
     
     public func getGradebook(reportPeriod: Int?) async throws -> Gradebook {
         guard validCredentials else { throw SwiftVueError.invalidCredentials }
-        try await delay()
+        try await Self.delay()
         switch reportPeriod {
         case 0: return PreviewData.gradebook1
         case 1: return PreviewData.gradebook2
@@ -56,13 +54,13 @@ public class PreviewDataProvider: DataProvider {
     
     public func getStudentInfo() async throws -> StudentInfo {
         guard validCredentials else { throw SwiftVueError.invalidCredentials }
-        try await delay()
+        try await Self.delay()
         return PreviewData.student1
     }
     
     public func getSchedule(termIndex: Int?) async throws -> Schedule {
         guard validCredentials else { throw SwiftVueError.invalidCredentials }
-        try await delay()
+        try await Self.delay()
         switch termIndex {
         case 0: return PreviewData.schedule1
         case 1: return PreviewData.schedule2
@@ -96,12 +94,6 @@ public class PreviewDataProvider: DataProvider {
         throw SwiftVueError.notImplemented("PreviewDataProvider.getDocument")
     }
     
-    public func getDistrictList(zip: String) async throws -> [DistrictInfo] {
-        guard validCredentials else { throw SwiftVueError.invalidCredentials }
-        try await delay()
-        return PreviewData.districtList1
-    }
-    
     public func getMailInboxCount() async throws -> String {
         guard validCredentials else { throw SwiftVueError.invalidCredentials }
         throw SwiftVueError.notImplemented("PreviewDataProvider.getMailInboxCount")
@@ -111,7 +103,12 @@ public class PreviewDataProvider: DataProvider {
         return validCredentials
     }
     
-    private func delay() async throws {
-        try await Task.sleep(nanoseconds: delayNanoseconds)
+    public static func getDistrictList(zip: String) async throws -> [DistrictInfo] {
+        try await delay()
+        return PreviewData.districtList1
+    }
+    
+    private static func delay() async throws {
+        try await Task.sleep(nanoseconds: Self.delayNanoseconds)
     }
 }
