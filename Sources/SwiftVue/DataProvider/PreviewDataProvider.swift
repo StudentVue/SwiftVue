@@ -11,12 +11,8 @@ public class PreviewDataProvider: DataProvider {
     public static var delayNanoseconds = UInt64(2e9)
     private let validCredentials: Bool
     
-    public init(credentials: Credentials = Credentials.preview) {
+    required public init(credentials: Credentials) {
         self.validCredentials = credentials == Credentials.preview
-    }
-    
-    public init(username: String, password: String, districtURL: String) {
-        self.validCredentials = Credentials(username: username, password: password, districtURL: districtURL) == Credentials.preview
     }
     
     public func getMessages() async throws -> String {

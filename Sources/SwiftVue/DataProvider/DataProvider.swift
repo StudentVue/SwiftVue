@@ -23,5 +23,7 @@ public protocol DataProvider {
     func getMailInboxCount() async throws -> String
     func verifyCredentials() async throws -> Bool
     
+    init(credentials: Credentials)
+    
     static func getDistrictList(zip: String) async throws -> [DistrictInfo]
 }

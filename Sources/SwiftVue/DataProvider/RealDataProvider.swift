@@ -12,12 +12,8 @@ public class RealDataProvider: DataProvider {
     
     static private let edupointCredentials: Credentials = Credentials(username: "EdupointDistrictInfo", password: "Edup01nt", districtURL: "https://support.edupoint.com")
     
-    public init(credentials: Credentials) {
+    required public init(credentials: Credentials) {
         self.credentials = credentials
-    }
-    
-    public init(username: String, password: String, districtURL: String) {
-        self.credentials = Credentials(username: username, password: password, districtURL: districtURL)
     }
     
     private func processRequest(method: String, paramString: String) async throws -> String {

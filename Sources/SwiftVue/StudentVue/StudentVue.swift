@@ -1,87 +1,76 @@
 import Foundation
 
-public class StudentVue {
-    var dataProvider: DataProvider
+public class StudentVue<Provider: DataProvider> {
+    var provider: Provider
     
-    public init(provider: DataProvider) {
-        self.dataProvider = provider
+    public init(credentials: Credentials) {
+        self.provider = Provider(credentials: credentials)
     }
     
-    public init(credentials: Credentials, isPreview: Bool) {
-        if isPreview {
-            self.dataProvider = PreviewDataProvider(credentials: credentials)
-        } else {
-            self.dataProvider = RealDataProvider(credentials: credentials)
-        }
-    }
-    
-    public init(username: String, password: String, districtURL: String, isPreview: Bool) {
-        if isPreview {
-            self.dataProvider = PreviewDataProvider(username: username, password: password, districtURL: districtURL)
-        } else {
-            self.dataProvider = RealDataProvider(username: username, password: password, districtURL: districtURL)
-        }
+    public convenience init(username: String, password: String, districtURL: String) {
+        let credentials = Credentials(username: username, password: password, districtURL: districtURL)
+        self.init(credentials: credentials)
     }
 }
 
 extension StudentVue {
     public func getMessages() async throws -> String {
-        return try await dataProvider.getMessages()
+        return try await provider.getMessages()
     }
     
     public func getCalendar() async throws -> String {
-        return try await dataProvider.getCalendar()
+        return try await provider.getCalendar()
     }
     
     public func getAttendance() async throws -> Attendance {
-        return try await dataProvider.getAttendance()
+        return try await provider.getAttendance()
     }
     
     public func getGradebook(reportPeriod: Int? = nil) async throws -> Gradebook {
-        return try await dataProvider.getGradebook(reportPeriod: reportPeriod)
+        return try await provider.getGradebook(reportPeriod: reportPeriod)
     }
     
     public func getClassNotes() async throws -> String {
-        return try await dataProvider.getClassNotes()
+        return try await provider.getClassNotes()
     }
     
     public func getStudentInfo() async throws -> StudentInfo {
-        return try await dataProvider.getStudentInfo()
+        return try await provider.getStudentInfo()
     }
     
     public func getSchedule(termIndex: Int? = nil) async throws -> Schedule {
-        return try await dataProvider.getSchedule(termIndex: termIndex)
+        return try await provider.getSchedule(termIndex: termIndex)
     }
     
     public func getSchoolInfo() async throws -> String {
-        return try await dataProvider.getSchoolInfo()
+        return try await provider.getSchoolInfo()
     }
     
     public func listReportCards() async throws -> String {
-        return try await dataProvider.listReportCards()
+        return try await provider.listReportCards()
     }
     
     public func getReportCard(documentGUID: String) async throws -> String {
-        return try await dataProvider.getReportCard(documentGUID: documentGUID)
+        return try await provider.getReportCard(documentGUID: documentGUID)
     }
     
     public func listDocuments() async throws -> String {
-        return try await dataProvider.listDocuments()
+        return try await provider.listDocuments()
     }
     
     public func getDocument(documentGUID: String) async throws -> String {
-        return try await dataProvider.getDocument(documentGUID: documentGUID)
+        return try await provider.getDocument(documentGUID: documentGUID)
     }
     
     public static func getDistrictList(zip: String) async throws -> [DistrictInfo] {
-        return try await RealDataProvider.getDistrictList(zip: zip)
+        return try await Provider.getDistrictList(zip: zip)
     }
     
     public func getMailInboxCount() async throws -> String {
-        return try await dataProvider.getMailInboxCount()
+        return try await provider.getMailInboxCount()
     }
     
     public func verifyCredentials() async throws -> Bool {
-        return try await dataProvider.verifyCredentials()
+        return try await provider.verifyCredentials()
     }
 }
