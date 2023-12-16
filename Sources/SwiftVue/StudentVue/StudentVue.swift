@@ -18,7 +18,7 @@ extension StudentVue {
         return try await provider.getMessages()
     }
     
-    public func getCalendar() async throws -> String {
+    public func getCalendar() async throws -> StudentCalendar {
         return try await provider.getCalendar()
     }
     
@@ -42,11 +42,11 @@ extension StudentVue {
         return try await provider.getSchedule(termIndex: termIndex)
     }
     
-    public func getSchoolInfo() async throws -> String {
-        return try await provider.getSchoolInfo()
+    public func getStaffInfo() async throws -> [StaffInfo] {
+        return try await provider.getStaffInfo()
     }
     
-    public func listReportCards() async throws -> String {
+    public func listReportCards() async throws -> [ReportCardInfo] {
         return try await provider.listReportCards()
     }
     
@@ -54,7 +54,7 @@ extension StudentVue {
         return try await provider.getReportCard(documentGUID: documentGUID)
     }
     
-    public func listDocuments() async throws -> String {
+    public func listDocuments() async throws -> [DocumentInfo] {
         return try await provider.listDocuments()
     }
     
@@ -66,7 +66,7 @@ extension StudentVue {
         return try await Provider.getDistrictList(zip: zip)
     }
     
-    public func getMailInboxCount() async throws -> String {
+    public func getMailInboxCount() async throws -> MailInboxCount {
         return try await provider.getMailInboxCount()
     }
     

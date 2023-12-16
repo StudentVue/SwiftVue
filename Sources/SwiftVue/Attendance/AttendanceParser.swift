@@ -26,7 +26,9 @@ public class AttendanceParser: NSObject, XMLParserDelegate {
     
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         self.parser.abortParsing()
-        self.error = parseError
+        if self.error == nil {
+            self.error = parseError
+        }
     }
     
     public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
@@ -64,6 +66,9 @@ public class AttendanceParser: NSObject, XMLParserDelegate {
             }
             
             self.periodTotals.append(periodTotal)
+        case "RT_ERROR":
+            self.parser.abortParsing()
+            self.error = SwiftVueError.error(from: attributeDict["ERROR_MESSAGE"])
         default:
             return
         }

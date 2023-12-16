@@ -35,7 +35,9 @@ public class ScheduleParser: NSObject, XMLParserDelegate {
     
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         self.parser.abortParsing()
-        self.error = parseError
+        if self.error == nil {
+            self.error = parseError
+        }
     }
     
     public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
@@ -43,66 +45,69 @@ public class ScheduleParser: NSObject, XMLParserDelegate {
         self.error = validationError
     }
     
-    public func parser(_ parser: XMLParser, didStartElement: String, namespaceURI: String?, qualifiedName: String?, attributes: [String : String]) {
-        switch didStartElement {
+    public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        switch elementName {
         case "StudentClassSchedule":
-            self.scheduleAttributes = attributes
+            self.scheduleAttributes = attributeDict
         case "TodayScheduleInfoData":
-            guard let todaySchedule = TodayScheduleInfoData(attributes: attributes) else {
+            guard let todaySchedule = TodayScheduleInfoData(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.todaySchedule = todaySchedule
         case "SchoolInfo":
-            guard let schoolInfo = SchoolInfo(attributes: attributes) else {
+            guard let schoolInfo = SchoolInfo(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.schoolInfo = schoolInfo
         case "ClassInfo":
-            guard let classInfo = ClassInfo(attributes: attributes) else {
+            guard let classInfo = ClassInfo(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.classes.append(classInfo)
         case "ClassListing":
-            guard let classListing = ClassListing(attributes: attributes) else {
+            guard let classListing = ClassListing(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.classLists.append(classListing)
         case "TermListing":
-            guard let termListing = TermListing(attributes: attributes) else {
+            guard let termListing = TermListing(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.termListing = termListing
         case "TermDefCode":
-            guard let termDefCode = TermDefCode(attributes: attributes) else {
+            guard let termDefCode = TermDefCode(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.termDefCodes.append(termDefCode)
         case "ConcurrentSchoolStudentClassSchedule":
-            guard let concurrentClassSchedule = ConcurrentClassSchedule(attributes: attributes) else {
+            guard let concurrentClassSchedule = ConcurrentClassSchedule(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.concurrentSchoolClassSchedule = concurrentClassSchedule
+        case "RT_ERROR":
+            self.parser.abortParsing()
+            self.error = SwiftVueError.error(from: attributeDict["ERROR_MESSAGE"])
         default:
             return
         }
     }
     
-    public func parser(_ parser: XMLParser, didEndElement: String, namespaceURI: String?, qualifiedName: String?) {
-        switch didEndElement {
+    public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        switch elementName {
         case "SchoolInfo":
             self.schoolInfo?.classes = classes
             self.classes = []

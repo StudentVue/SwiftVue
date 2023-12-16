@@ -16,6 +16,7 @@ public enum SwiftVueError: Error {
     case unknown
     case noData
     case notImplemented(String)
+    case other(String)
     
     public var errorDescription: String? {
         switch self {
@@ -35,6 +36,20 @@ public enum SwiftVueError: Error {
             return "No data"
         case .notImplemented(let feature):
             return "\(feature) not implemented"
+        case .other(let message):
+            return message
+        }
+    }
+    
+    public static func error(from message: String?) -> SwiftVueError {
+        guard let message else {
+            return .unknown
+        }
+        
+        if message.hasPrefix("Invalid user id or password") {
+            return .invalidCredentials
+        } else {
+            return .other(message)
         }
     }
 }

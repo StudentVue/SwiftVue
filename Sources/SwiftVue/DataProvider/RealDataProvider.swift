@@ -124,16 +124,14 @@ public class RealDataProvider: DataProvider {
         return try await makeRequest(method: "GetPXPMessages")
     }
     
-    public func getCalendar() async throws -> String {
-        return try await makeRequest(method: "StudentCalendar")
+    public func getCalendar() async throws -> StudentCalendar {
+        let result = try await makeRequest(method: "StudentCalendar")
+        
+        return try StudentCalendarParser(string: result).parse()
     }
     
     public func getAttendance() async throws -> Attendance {
         let result = try await makeRequest(method: "Attendance")
-        
-        if !result.contains("Attendance") {
-            throw SwiftVueError.invalidCredentials
-        }
         
         return try AttendanceParser(string: result).parse()
     }
@@ -145,10 +143,6 @@ public class RealDataProvider: DataProvider {
         }
         let result = try await makeRequest(method: "Gradebook", params: params)
         
-        if !result.contains("Gradebook") {
-            throw SwiftVueError.invalidCredentials
-        }
-        
         return try GradebookParser(string: result).parse()
     }
     
@@ -158,9 +152,7 @@ public class RealDataProvider: DataProvider {
     
     public func getStudentInfo() async throws -> StudentInfo {
         let string = try await makeRequest(method: "StudentInfo")
-        if !string.contains("StudentInfo") {
-            throw SwiftVueError.invalidCredentials
-        }
+        
         return try StudentInfoParser(string: string).parse()
     }
     
@@ -170,46 +162,54 @@ public class RealDataProvider: DataProvider {
             params = ["TermIndex": "\(term)"]
         }
         let string = try await makeRequest(method: "StudentClassList", params: params)
-        if !string.contains("StudentClassSchedule") {
-            throw SwiftVueError.invalidCredentials
-        }
+        
         return try ScheduleParser(string: string).parse()
     }
     
-    public func getSchoolInfo() async throws -> String {
-        return try await makeRequest(method: "StudentSchoolInfo")
+    public func getStaffInfo() async throws -> [StaffInfo] {
+        let result = try await makeRequest(method: "StudentSchoolInfo")
+        
+        return try StaffInfoParser(string: result).parse()
     }
     
-    public func listReportCards() async throws -> String {
-        return try await makeRequest(method: "GetReportCardInitialData")
+    public func listReportCards() async throws -> [ReportCardInfo] {
+        let result = try await makeRequest(method: "GetReportCardInitialData")
+        
+        return try ReportCardInfoParser(string: result).parse()
     }
     
     public func getReportCard(documentGUID: String) async throws -> String {
         return try await makeRequest(method: "GetReportCardDocumentData", params: ["DocumentGU": documentGUID])
     }
     
-    public func listDocuments() async throws -> String {
-        return try await makeRequest(method: "GetStudentDocumentInitialData")
+    public func listDocuments() async throws -> [DocumentInfo] {
+        let result = try await makeRequest(method: "GetStudentDocumentInitialData")
+        
+        return try DocumentInfoParser(string: result).parse()
     }
     
     public func getDocument(documentGUID: String) async throws -> String {
         return try await makeRequest(method: "GetContentOfAttachedDoc", params: ["DocumentGU": documentGUID])
     }
     
-    public func getMailInboxCount() async throws -> String {
-        return try await makeRequest(method: "SynergyMailGetInboxCount")
+    public func getMailInboxCount() async throws -> MailInboxCount {
+        let result = try await makeRequest(method: "SynergyMailGetInboxCount")
+        
+        return try MailInboxCountParser(string: result).parse()
     }
     
     public func verifyCredentials() async throws -> Bool {
-        let string = try await getMailInboxCount()
-        return string.contains("SynergyMailInboxCountXML")
+        do {
+            let _ = try await getMailInboxCount()
+            return true
+        } catch SwiftVueError.invalidCredentials {
+            return false
+        }
     }
     
     public static func getDistrictList(zip: String) async throws -> [DistrictInfo] {
         let string = try await makeRequest(method: "GetMatchingDistrictList", params: ["Key":"5E4B7859-B805-474B-A833-FDB15D205D40", "MatchToDistrictZipCode":"\(zip)"])
-        if !string.contains("DistrictList") {
-            throw SwiftVueError.invalidCredentials
-        }
+        
         return try DistrictInfoParser(string: string).parse()
     }
 }

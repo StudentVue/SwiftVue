@@ -1,14 +1,15 @@
 //
-//  DistrictInfoParser.swift
-//  
+//  StudentCalendarParser.swift
 //
-//  Created by Evan Kaneshige on 8/26/23.
+//
+//  Created by Evan Kaneshige on 12/14/23.
 //
 
 import Foundation
 
-public class DistrictInfoParser: NSObject, XMLParserDelegate {
-    private var districtInfos: [DistrictInfo] = []
+public class StudentCalendarParser: NSObject, XMLParserDelegate {
+    private var studentCalendar: StudentCalendar?
+    private var eventInfos: [EventInfo] = []
     
     private var parser: XMLParser
     private var error: Error?
@@ -36,13 +37,20 @@ public class DistrictInfoParser: NSObject, XMLParserDelegate {
     
     public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         switch elementName {
-        case "DistrictInfo":
-            guard let districtInfo = DistrictInfo(attributes: attributeDict) else {
+        case "CalendarListing":
+            guard let studentCalendar = StudentCalendar(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
-            self.districtInfos.append(districtInfo)
+            self.studentCalendar = studentCalendar
+        case "EventList":
+            guard let eventInfo = EventInfo(attributes: attributeDict) else {
+                self.parser.abortParsing()
+                return
+            }
+            
+            self.studentCalendar?.events.append(eventInfo)
         case "RT_ERROR":
             self.parser.abortParsing()
             self.error = SwiftVueError.error(from: attributeDict["ERROR_MESSAGE"])
@@ -51,13 +59,17 @@ public class DistrictInfoParser: NSObject, XMLParserDelegate {
         }
     }
     
-    public func parse() throws -> [DistrictInfo] {
+    public func parse() throws -> StudentCalendar {
         self.parser.parse()
         
         if let error {
             throw error
         }
         
-        return self.districtInfos
+        if let studentCalendar {
+            return studentCalendar
+        } else {
+            throw SwiftVueError.couldNotParseXML
+        }
     }
 }

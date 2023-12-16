@@ -1,14 +1,14 @@
 //
-//  DistrictInfoParser.swift
+//  ReportCardInfoParser.swift
 //  
 //
-//  Created by Evan Kaneshige on 8/26/23.
+//  Created by Evan Kaneshige on 12/14/23.
 //
 
 import Foundation
 
-public class DistrictInfoParser: NSObject, XMLParserDelegate {
-    private var districtInfos: [DistrictInfo] = []
+public class ReportCardInfoParser: NSObject, XMLParserDelegate {
+    private var reportCardInfos: [ReportCardInfo] = []
     
     private var parser: XMLParser
     private var error: Error?
@@ -36,13 +36,13 @@ public class DistrictInfoParser: NSObject, XMLParserDelegate {
     
     public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         switch elementName {
-        case "DistrictInfo":
-            guard let districtInfo = DistrictInfo(attributes: attributeDict) else {
+        case "RCReportingPeriod":
+            guard let reportCardInfo = ReportCardInfo(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
-            self.districtInfos.append(districtInfo)
+            self.reportCardInfos.append(reportCardInfo)
         case "RT_ERROR":
             self.parser.abortParsing()
             self.error = SwiftVueError.error(from: attributeDict["ERROR_MESSAGE"])
@@ -51,13 +51,13 @@ public class DistrictInfoParser: NSObject, XMLParserDelegate {
         }
     }
     
-    public func parse() throws -> [DistrictInfo] {
+    public func parse() throws -> [ReportCardInfo] {
         self.parser.parse()
         
         if let error {
             throw error
         }
         
-        return self.districtInfos
+        return self.reportCardInfos
     }
 }

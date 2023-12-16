@@ -27,7 +27,9 @@ public class StudentInfoParser: NSObject, XMLParserDelegate {
     
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         self.parser.abortParsing()
-        self.error = parseError
+        if self.error == nil {
+            self.error = parseError
+        }
     }
     
     public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
@@ -35,43 +37,46 @@ public class StudentInfoParser: NSObject, XMLParserDelegate {
         self.error = validationError
     }
     
-    public func parser(_ parser: XMLParser, didStartElement: String, namespaceURI: String?, qualifiedName: String?, attributes: [String : String]) {
-        switch didStartElement {
+    public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        switch elementName {
         case "EmergencyContact":
-            guard let emergencyContact = EmergencyContact(attributes: attributes) else {
+            guard let emergencyContact = EmergencyContact(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.studentInfo.emergencyContacts.append(emergencyContact)
         case "Physician":
-            guard let physician = Physician(attributes: attributes) else {
+            guard let physician = Physician(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.studentInfo.physician = physician
         case "Dentist":
-            guard let dentist = Dentist(attributes: attributes) else {
+            guard let dentist = Dentist(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.studentInfo.dentist = dentist
         case "UserDefinedItem":
-            guard let userDefinedItem = UserDefinedItem(attributes: attributes) else {
+            guard let userDefinedItem = UserDefinedItem(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.userDefinedItems.append(userDefinedItem)
+        case "RT_ERROR":
+            self.parser.abortParsing()
+            self.error = SwiftVueError.error(from: attributeDict["ERROR_MESSAGE"])
         default:
             return
         }
     }
     
-    public func parser(_ parser: XMLParser, didEndElement: String, namespaceURI: String?, qualifiedName: String?) {
-        switch didEndElement {
+    public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        switch elementName {
         case "FormattedName":
             self.studentInfo.formattedName = characterAcc.trimmingCharacters(in: .whitespacesAndNewlines)
         case "PermID":

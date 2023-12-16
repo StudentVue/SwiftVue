@@ -35,7 +35,9 @@ public class GradebookParser: NSObject, XMLParserDelegate {
     
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         self.parser.abortParsing()
-        self.error = parseError
+        if self.error == nil {
+            self.error = parseError
+        }
     }
     
     public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
@@ -44,64 +46,67 @@ public class GradebookParser: NSObject, XMLParserDelegate {
     }
     
     
-    public func parser(_ parser: XMLParser, didStartElement: String, namespaceURI: String?, qualifiedName: String?, attributes: [String : String]) {
-        switch didStartElement {
+    public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        switch elementName {
         case "ReportPeriod":
-            guard let reportPeriod = ReportPeriod(attributes: attributes) else {
+            guard let reportPeriod = ReportPeriod(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.reportingPeriods.append(reportPeriod)
         case "ReportingPeriod":
-            guard let reportingPeriod = ReportingPeriod(attributes: attributes) else {
+            guard let reportingPeriod = ReportingPeriod(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.reportingPeriod = reportingPeriod
         case "Course":
-            guard let course = Course(attributes: attributes) else {
+            guard let course = Course(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.course = course
         case "Mark":
-            guard let mark = Mark(attributes: attributes) else {
+            guard let mark = Mark(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.mark = mark
         case "AssignmentGradeCalc":
-            guard let gradeCalculationPart = GradeCalculationPart(attributes: attributes) else {
+            guard let gradeCalculationPart = GradeCalculationPart(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.gradeSummary.append(gradeCalculationPart)
         case "Assignment":
-            guard let assinment = Assignment(attributes: attributes) else {
+            guard let assinment = Assignment(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.assignment = assinment
         case "Resource":
-            guard let resource = Resource(attributes: attributes) else {
+            guard let resource = Resource(attributes: attributeDict) else {
                 self.parser.abortParsing()
                 return
             }
             
             self.resources.append(resource)
+        case "RT_ERROR":
+            self.parser.abortParsing()
+            self.error = SwiftVueError.error(from: attributeDict["ERROR_MESSAGE"])
         default:
             return
         }
     }
     
-    public func parser(_ parser: XMLParser, didEndElement: String, namespaceURI: String?, qualifiedName: String?) {
-        switch didEndElement {
+    public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        switch elementName {
         case "Assignment":
             self.assignment?.resources = resources
             self.resources = []

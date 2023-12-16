@@ -20,7 +20,7 @@ public class PreviewDataProvider: DataProvider {
         throw SwiftVueError.notImplemented("PreviewDataProvider.getMessages")
     }
     
-    public func getCalendar() async throws -> String {
+    public func getCalendar() async throws -> StudentCalendar {
         guard validCredentials else { throw SwiftVueError.invalidCredentials }
         throw SwiftVueError.notImplemented("PreviewDataProvider.getCalendar")
     }
@@ -65,12 +65,12 @@ public class PreviewDataProvider: DataProvider {
         }
     }
     
-    public func getSchoolInfo() async throws -> String {
+    public func getStaffInfo() async throws -> [StaffInfo] {
         guard validCredentials else { throw SwiftVueError.invalidCredentials }
         throw SwiftVueError.notImplemented("PreviewDataProvider.getSchoolInfo")
     }
     
-    public func listReportCards() async throws -> String {
+    public func listReportCards() async throws -> [ReportCardInfo] {
         guard validCredentials else { throw SwiftVueError.invalidCredentials }
         throw SwiftVueError.notImplemented("PreviewDataProvider.listReportCards")
     }
@@ -80,7 +80,7 @@ public class PreviewDataProvider: DataProvider {
         throw SwiftVueError.notImplemented("PreviewDataProvider.getReportCard")
     }
     
-    public func listDocuments() async throws -> String {
+    public func listDocuments() async throws -> [DocumentInfo] {
         guard validCredentials else { throw SwiftVueError.invalidCredentials }
         throw SwiftVueError.notImplemented("PreviewDataProvider.listDocuments")
     }
@@ -90,7 +90,7 @@ public class PreviewDataProvider: DataProvider {
         throw SwiftVueError.notImplemented("PreviewDataProvider.getDocument")
     }
     
-    public func getMailInboxCount() async throws -> String {
+    public func getMailInboxCount() async throws -> MailInboxCount {
         guard validCredentials else { throw SwiftVueError.invalidCredentials }
         throw SwiftVueError.notImplemented("PreviewDataProvider.getMailInboxCount")
     }
