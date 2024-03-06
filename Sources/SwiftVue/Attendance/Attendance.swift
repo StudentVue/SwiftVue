@@ -19,9 +19,9 @@ public struct Attendance: Hashable, Codable, Identifiable {
     public var totalTardies: [PeriodTotal]
     public var totalUnexcused: [PeriodTotal]
     public var totalActivities: [PeriodTotal]
-    public var TotalUnexcusedTardies: [PeriodTotal]
+    public var totalUnexcusedTardies: [PeriodTotal]
     
-    public init(id: UUID = UUID(), type: String, startPeriod: String, endPeriod: String, periodCount: Int, schoolName: String, absences: [Absence], totalExcused: [PeriodTotal], totalTardies: [PeriodTotal], totalUnexcused: [PeriodTotal], totalActivities: [PeriodTotal], TotalUnexcusedTardies: [PeriodTotal]) {
+    public init(id: UUID = UUID(), type: String, startPeriod: String, endPeriod: String, periodCount: Int, schoolName: String, absences: [Absence], totalExcused: [PeriodTotal], totalTardies: [PeriodTotal], totalUnexcused: [PeriodTotal], totalActivities: [PeriodTotal], totalUnexcusedTardies: [PeriodTotal]) {
         self.id = id
         self.type = type
         self.startPeriod = startPeriod
@@ -33,7 +33,7 @@ public struct Attendance: Hashable, Codable, Identifiable {
         self.totalTardies = totalTardies
         self.totalUnexcused = totalUnexcused
         self.totalActivities = totalActivities
-        self.TotalUnexcusedTardies = TotalUnexcusedTardies
+        self.totalUnexcusedTardies = totalUnexcusedTardies
     }
     
     internal init?(attributes: [String: String]) {
@@ -48,7 +48,7 @@ public struct Attendance: Hashable, Codable, Identifiable {
         do {
             let periodCount = try Int(periodCountAttribute, format: .number)
             
-            self.init(type: typeAttribute, startPeriod: startPeriodAttribute, endPeriod: endPeriodAttribute, periodCount: periodCount, schoolName: schoolNameAttribute, absences: [], totalExcused: [], totalTardies: [], totalUnexcused: [], totalActivities: [], TotalUnexcusedTardies: [])
+            self.init(type: typeAttribute, startPeriod: startPeriodAttribute, endPeriod: endPeriodAttribute, periodCount: periodCount, schoolName: schoolNameAttribute, absences: [], totalExcused: [], totalTardies: [], totalUnexcused: [], totalActivities: [], totalUnexcusedTardies: [])
         } catch {
             return nil
         }

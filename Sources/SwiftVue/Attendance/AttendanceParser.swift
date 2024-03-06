@@ -96,7 +96,7 @@ public class AttendanceParser: NSObject, XMLParserDelegate {
             self.attendance?.totalActivities = periodTotals
             self.periodTotals = []
         case "TotalUnexcusedTardies":
-            self.attendance?.TotalUnexcusedTardies = periodTotals
+            self.attendance?.totalUnexcusedTardies = periodTotals
             self.periodTotals = []
         default:
             return
