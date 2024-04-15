@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Attendance: Hashable, Codable, Identifiable {
+public struct Attendance: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var type: String
     public var startPeriod: String

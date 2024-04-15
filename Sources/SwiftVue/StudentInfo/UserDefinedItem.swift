@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct UserDefinedItem: Hashable, Codable, Identifiable {
+public struct UserDefinedItem: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var itemLabel: String
     public var value: String

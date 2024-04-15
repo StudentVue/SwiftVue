@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DocumentInfo: Hashable, Codable, Identifiable {
+public struct DocumentInfo: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var documentGU: String
     public var name: String

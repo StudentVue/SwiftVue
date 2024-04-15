@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TermDefCode: Hashable, Codable, Identifiable {
+public struct TermDefCode: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var termDefName: String
     

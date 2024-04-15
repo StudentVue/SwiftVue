@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StaffInfo: Hashable, Codable, Identifiable {
+public struct StaffInfo: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var name: String
     public var email: String

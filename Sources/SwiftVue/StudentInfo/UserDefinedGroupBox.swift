@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct UserDefinedGroupBox: Hashable, Codable, Identifiable {
+public struct UserDefinedGroupBox: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var userDefinedItems: [UserDefinedItem]
     

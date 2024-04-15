@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EmergencyContact: Hashable, Codable, Identifiable {
+public struct EmergencyContact: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var name: String
     public var relationship: String

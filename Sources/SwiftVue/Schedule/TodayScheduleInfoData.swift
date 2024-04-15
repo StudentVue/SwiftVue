@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TodayScheduleInfoData: Hashable, Codable, Identifiable {
+public struct TodayScheduleInfoData: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var date: Date?
     public var schoolInfos: [SchoolInfo]

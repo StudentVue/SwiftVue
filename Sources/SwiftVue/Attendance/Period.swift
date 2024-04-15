@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Period: Hashable, Codable, Identifiable {
+public struct Period: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var number: Int
     public var name: String

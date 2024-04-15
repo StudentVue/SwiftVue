@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ClassInfo: Hashable, Codable, Identifiable {
+public struct ClassInfo: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var period: Int
     public var className: String

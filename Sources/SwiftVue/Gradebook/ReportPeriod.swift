@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ReportPeriod: Hashable, Codable, Identifiable {
+public struct ReportPeriod: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var index: Int
     public var name: String

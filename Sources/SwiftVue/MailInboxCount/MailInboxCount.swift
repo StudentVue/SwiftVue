@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MailInboxCount: Hashable, Codable, Identifiable {
+public struct MailInboxCount: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var parentRecipientAccessValue: String
     public var studentRecipientAccessValue: String

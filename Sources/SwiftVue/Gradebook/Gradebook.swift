@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Gradebook: Hashable, Codable, Identifiable {
+public struct Gradebook: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var reportingPeriods: [ReportPeriod]
     public var reportingPeriod: ReportingPeriod

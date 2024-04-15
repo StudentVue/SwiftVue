@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ConcurrentClassSchedule: Hashable, Codable, Identifiable {
+public struct ConcurrentClassSchedule: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var schoolName: String
     public var termIndex: Int

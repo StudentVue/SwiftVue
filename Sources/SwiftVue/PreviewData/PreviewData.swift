@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct PreviewData {
+public struct PreviewData: Sendable {
     public static let credentials = Credentials(username: "myUs3rname", password: "myP@ssword", districtURL: "myD1strict")
 }

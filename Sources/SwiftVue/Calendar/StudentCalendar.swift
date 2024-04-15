@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StudentCalendar: Hashable, Codable, Identifiable {
+public struct StudentCalendar: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var schoolBeginDate: Date
     public var schoolEndDate: Date

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DistrictInfo: Hashable, Codable, Identifiable {
+public struct DistrictInfo: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var districtID: String
     public var name: String

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Schedule: Hashable, Codable, Identifiable {
+public struct Schedule: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var termIndex: Int
     public var termIndexName: String

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Assignment: Hashable, Codable, Identifiable {
+public struct Assignment: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var name: String
     public var type: String

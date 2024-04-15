@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Credentials: Hashable, Codable {
+public struct Credentials: Hashable, Codable, Sendable {
     public init(username: String, password: String, districtURL: String) {
         self.username = username
         self.password = password

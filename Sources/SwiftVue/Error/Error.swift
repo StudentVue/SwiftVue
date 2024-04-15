@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SwiftVueError: Error {
+public enum SwiftVueError: Error, Sendable {
     case invalidResponse
     case couldNotDecodeResponse
     case invalidCredentials

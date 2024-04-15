@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Resource: Hashable, Codable, Identifiable {
+public struct Resource: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var description: String
     public var name: String

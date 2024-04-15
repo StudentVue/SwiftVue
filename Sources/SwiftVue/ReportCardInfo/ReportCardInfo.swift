@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ReportCardInfo: Hashable, Codable, Identifiable {
+public struct ReportCardInfo: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var reportingPeriodGU: String
     public var reportingPeriodName: String

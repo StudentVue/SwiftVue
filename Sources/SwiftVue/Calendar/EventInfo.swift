@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EventInfo: Hashable, Codable, Identifiable {
+public struct EventInfo: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var date: Date
     public var title: String

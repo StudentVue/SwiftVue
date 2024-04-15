@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StudentInfo: Hashable, Codable, Identifiable {
+public struct StudentInfo: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID = UUID()
     public var formattedName: String
     public var permId: String

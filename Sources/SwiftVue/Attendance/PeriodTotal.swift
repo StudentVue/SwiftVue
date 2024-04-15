@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PeriodTotal: Hashable, Codable, Identifiable {
+public struct PeriodTotal: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var number: Int
     public var total: Int

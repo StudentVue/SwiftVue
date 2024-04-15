@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Absence: Hashable, Codable, Identifiable {
+public struct Absence: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var absenceDate: Date
     public var reason: String

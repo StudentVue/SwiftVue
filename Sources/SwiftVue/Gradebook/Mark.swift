@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Mark: Hashable, Codable, Identifiable {
+public struct Mark: Hashable, Codable, Identifiable, Sendable {
     public var id: UUID
     public var name: String
     public var scoreString: String
