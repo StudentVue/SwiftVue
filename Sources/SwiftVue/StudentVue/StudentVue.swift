@@ -1,6 +1,6 @@
 import Foundation
 
-public class StudentVue {
+final public class StudentVue: Sendable {
     private let credentials: Credentials
     
     static private let edupointCredentials: Credentials = Credentials(username: "EdupointDistrictInfo", password: "Edup01nt", districtURL: "https://support.edupoint.com")
