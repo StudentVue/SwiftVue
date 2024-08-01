@@ -18,7 +18,7 @@ public enum SwiftVueError: Error, Sendable {
     case notImplemented(String)
     case other(String)
     
-    public var errorDescription: String? {
+    public var errorDescription: String {
         switch self {
         case .invalidResponse:
             return "Invalid response"
