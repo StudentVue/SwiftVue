@@ -41,7 +41,7 @@ public struct Assignment: Hashable, Codable, Identifiable, Sendable {
               let typeAttribute = attributes["Type"],
               let dateAttribute = attributes["Date"],
               let dueAttribute = attributes["DueDate"],
-              let scoreAttribute = attributes["Score"],
+              let scoreAttribute = attributes["DisplayScore"],
               let scoreTypeAttribute = attributes["ScoreType"],
               let pointsAttribute = attributes["Points"],
               let notesAttribute = attributes["Notes"],
